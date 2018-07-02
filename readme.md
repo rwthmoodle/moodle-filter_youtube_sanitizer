@@ -17,8 +17,3 @@ You need to have a running moodle V3.* on your server  to install this plugin.
 Windows support
 ---------------
 * use `\` instead of `/` in paths in examples above
-
-
-
-
-Installation is done by the standard Procedure. the Pluginname should be filter-youtube-sanitizer.
