@@ -61,7 +61,9 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             // Get the right part of the node and replace it.
             if (preg_match("=youtube.*embed/=i", $src)) {
                 $newnode = $this->video_embed_privacy_translate($node, $src);
-                $node->parentNode->replaceChild($newnode, $node);
+				echo '<pre>';var_dump($newnode);echo '</pre>';
+				$parent->replaceChild($newnode, $node);
+
             }
         }
         // Return the changed HTML string.
@@ -111,8 +113,8 @@ EOT;
         $newdiv->setAttribute('class', "video-wrapped");
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
         $newdiv->setAttribute('style', "background-image: url($preview);background-position:center; background-repeat: no-repeat;");
+		$newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
-        $newdiv->setAttribute('data-embed-play', $playtext);
         return $newdiv;
     }
 
