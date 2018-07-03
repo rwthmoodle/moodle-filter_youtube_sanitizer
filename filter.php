@@ -29,19 +29,25 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Automatic media embedding filter class.
+ * Filter Youtube Synitizer.
  *
  * It is highly recommended to configure servers to be compatible with our slasharguments,
  * otherwise the "?d=600x400" may not work.
  *
  * @package    filter
  * @subpackage youtube-sanitizer
- * @copyright  2004 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @copyright  2018 Markus Offermann  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 class filter_youtube_sanitizer extends moodle_text_filter {
-
+	/**
+     * Get the DOMDocument from the context. Find all the iframes and replace them with divs.
+	 * Add the script to bind the click functionality to the div so the Video starts on click.
+     *
+     *
+     * @return  string
+     */
     public function filter($text, array $options = array()) {
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
@@ -71,6 +77,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $src = $node->getAttribute('src');
         $width = $node->getAttribute('width');
         $height = $node->getAttribute('height');
+		// Adding the Play Button.
         $button = <<<EOT
             <svg class="privacy-play-btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             version="1.1" id="YouTube_Icon" x="0px" y="0px" viewBox="0 0 1024 721" enable-background="new 0 0 1024 721"

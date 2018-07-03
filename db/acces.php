@@ -1,5 +1,4 @@
 <?php
-
 $capabilities = array(
 	'filter/youtube_sanitizer:termsConditionURL' => array(
 		'captype' => 'write',
