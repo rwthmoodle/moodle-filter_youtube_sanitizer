@@ -93,6 +93,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             s214.6-0.3,357.6-10.7c20-2.4,63.5-2.6,102.3-43.3c30.6-31,40.6-101.4,40.6-101.4s10.2-82.7,10.2-165.3v-77.5
             C1023.2,238.9,1013,156.3,1013,156.3z M407,493l0-287l276,144L407,493z"/></g></g></svg>
 EOT;
+		// setting all the needed  strings
         $url = get_string('url', 'filter_youtube_sanitizer');
         $nojstext = get_string('no-js-message', 'filter_youtube_sanitizer');
         $terms = get_string('terms', 'filter_youtube_sanitizer');
@@ -103,7 +104,7 @@ EOT;
         if (!preg_match("=youtube.*embed/([\\w-]+)=i", $url, $matches)) {
             return $url;
         }
-
+		// Set all the attributes and replace the node with the noew node.
         $v = $matches[1];
         $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?v=$v");
         $newdiv = $node->ownerDocument->createElement('div');
