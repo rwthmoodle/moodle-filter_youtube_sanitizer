@@ -17,12 +17,10 @@
 /**
  * Privacy Subsystem implementation for filter_tidy.
  *
- * @package    filter_tidy
- * @copyright  2018 Andrew Nicols <andrew@nicols.co.uk>
+ * @package    filter_youtube_sanitizer
+ * @copyright  2018 Markus Offermann
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// namespace filter_tidy\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 

@@ -20,7 +20,7 @@
  *  This filter will replace any links to a media file with
  *  a media plugin that plays that media inline
  *
- * @package    filter
+ * @package    filter youtube sanitizer 
  * @subpackage mediaplugin
  * @copyright  2004 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,25 +29,25 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Filter Youtube Synitizer.
+ * Filter Youtube Sanitizer.
  *
  * It is highly recommended to configure servers to be compatible with our slasharguments,
  * otherwise the "?d=600x400" may not work.
  *
- * @package    filter
+ * @package    filter youtube sanitizer
  * @subpackage youtube-sanitizer
  * @copyright  2018 Markus Offermann  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 class filter_youtube_sanitizer extends moodle_text_filter {
 	/**
-     * Get the DOMDocument from the context. Find all the iframes and replace them with divs.
+	 * Get the DOMDocument from the context. Find all the iframes and replace them with divs.
 	 * Add the script to bind the click functionality to the div so the Video starts on click.
-     *
-     *
-     * @return  string
-     */
+	 *
+	 * @param $text contains string
+	 * @param array of window sizes for the video
+	 * @return  string
+	 */
     public function filter($text, array $options = array()) {
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
@@ -75,7 +75,12 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         //Return the changed HTML string
         return $dom->saveHTML($dom);
     }
-
+	/**
+	 * i belong to a functionality
+	 *
+	 * @param $node contains the DOMDoc object
+	 * @param $url string conatining th e urk from the secific iframe
+	 */
     public function video_embed_privacy_translate($node, $url) {
 
         global $PAGE, $CFG;
