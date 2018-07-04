@@ -40,13 +40,13 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                 $node->parentNode->replaceChild($newNode, $node);
             }
         }
-        foreach ($dom->getElementsByTagName('a') as $nodeA) {
-            $hrefA = $nodeA->getAttribute('href');
-            if(preg_match("=youtube.*="/*embed/=i"*/, $hrefA)) {
-                echo '<pre>';var_dump($hrefA);echo '</pre>';
-
-            }
-        }
+        // foreach ($dom->getElementsByTagName('a') as $nodeA) {
+        //     $hrefA = $nodeA->getAttribute('href');
+        //     if(preg_match("=youtube.*="/*embed/=i"*/, $hrefA)) {
+        //         echo '<pre>';var_dump($hrefA);echo '</pre>';
+		//
+        //     }
+        // }
         //Return the changed HTML string
         return $dom->saveHTML($dom);
     }
