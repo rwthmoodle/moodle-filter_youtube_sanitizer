@@ -1,4 +1,3 @@
-
 require(['jquery'], function($) {
     $(function() {
         $(".video-wrapped").each(function() {

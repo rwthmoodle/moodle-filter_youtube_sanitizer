@@ -1,7 +1,4 @@
 <?php
-
-
-
 $string['filtername'] = 'Youtube Sanitizer';
 $string['pluginname'] = 'Youtube Sanitizer';
 $string['no-js-message'] = 'Please activate JavaScript to watch the Video';

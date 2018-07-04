@@ -1,39 +1,64 @@
 <?php
- // Automatic media embedding filter class extended for YT privacy
- //
- // It is highly recommended to configure servers to be compatible with our slasharguments,
- // otherwise the "?d=600x400" may not work.
- //
- // @package    filter
- // @subpackage mediaplugin
- // @copyright  2004 onwards Martin Dougiamas  {@link http://moodle.com}
- // @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ *  Media plugin filtering
+ *
+ *  This filter will replace any links to a media file with
+ *  a media plugin that plays that media inline
+ *
+ * @package    filter
+ * @subpackage mediaplugin
+ * @copyright  2004 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
+defined('MOODLE_INTERNAL') || die();
+
+/**
+ * Filter Youtube Synitizer.
+ *
+ * It is highly recommended to configure servers to be compatible with our slasharguments,
+ * otherwise the "?d=600x400" may not work.
+ *
+ * @package    filter
+ * @subpackage youtube-sanitizer
+ * @copyright  2018 Markus Offermann  {@link http://moodle.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 class filter_youtube_sanitizer extends moodle_text_filter {
-
-
-
+	/**
+     * Get the DOMDocument from the context. Find all the iframes and replace them with divs.
+	 * Add the script to bind the click functionality to the div so the Video starts on click.
+     *
+     *
+     * @return  string
+     */
     public function filter($text, array $options = array()) {
-
-      	/**
-       	* Converts the $PAGE into DOMDocument object. Searches the DomObjects for nodes that contain either iframes and their
-		* attributes.
-       	* Gives the Node object to "video_embed_privacy_translate" and replaces the old node with the new one.
-       	* @param $text contains the content to be filtered
-       	* @param $options is an array that contains all the options one could give to to generated page
-       	*/
-
-        //Create DOMDocument from the context.
+        // Create DOMDocument from the context.
         $dom = new DOMDocument;
         $dom->loadHTML($text);
-        //Get all the Iframe Elements from the DOMDocument
+        // Get all the Iframe Elements from the DOMDocument.
         foreach ($dom->getElementsByTagName('iframe') as $node) {
-            //Get the Attributes of the node
+            // Get the Attributes of the node.
             $src = $node->getAttribute('src');
             $href = $node->getAttribute('href');
             $parent = $node->parentNode;
+
             // Get the right part of the node and replace it
             if(preg_match("=youtube.*embed/=i", $src)) {
                 $newNode =    $this->video_embed_privacy_translate($node, $src);
@@ -53,20 +78,15 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 
     public function video_embed_privacy_translate($node, $url) {
 
-        /**
-        * @param $node is the DOMDocument Object
-        * @param $url is the URL of the Iframe
-        */
-
         global $PAGE, $CFG;
 
-        //reqiure the nescassary JS-file that handles everything associated with clicks and touches
-        // $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/filter/youtube_sanitizer/video-embed-privacy/video-embed-privacy.js'));
+        // Reqiure the nescassary JS-file that handles everything associated with clicks and touches.
         $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/filter/youtube_sanitizer/video-embed-privacy.js'));
         $src = $node->getAttribute('src');
         $width = $node->getAttribute('width');
         $height = $node->getAttribute('height');
-        $yt_btn = <<<EOT
+		// Adding the Play Button.
+        $button = <<<EOT
             <svg class="privacy-play-btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             version="1.1" id="YouTube_Icon" x="0px" y="0px" viewBox="0 0 1024 721" enable-background="new 0 0 1024 721"
             xml:space="preserve" ><path id="Triangle" fill="#FFFFFF" d="M407,493l276-143L407,206V493z"/><path id="The_Sharpness"
@@ -81,27 +101,27 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             s214.6-0.3,357.6-10.7c20-2.4,63.5-2.6,102.3-43.3c30.6-31,40.6-101.4,40.6-101.4s10.2-82.7,10.2-165.3v-77.5
             C1023.2,238.9,1013,156.3,1013,156.3z M407,493l0-287l276,144L407,493z"/></g></g></svg>
 EOT;
-        $URL = get_string('url', 'filter_youtube_sanitizer');
-        $NO_JS_TEXT = get_string('no-js-message', 'filter_youtube_sanitizer');
-        $TERMS = get_string('terms', 'filter_youtube_sanitizer');
-        $COND = get_string('conditions', 'filter_youtube_sanitizer');
-        $PLAY_TEXT = '<div class="overlay">' . $yt_btn . '<div class="small"> ' . $TERMS ;
-        $PLAY_TEXT .= '<a href="' . $URL . '" target="_blank"> ' . $COND . '</a>';
+		// setting all the needed  strings
+        $url = get_string('url', 'filter_youtube_sanitizer');
+        $nojstext = get_string('no-js-message', 'filter_youtube_sanitizer');
+        $terms = get_string('terms', 'filter_youtube_sanitizer');
+        $cond = get_string('conditions', 'filter_youtube_sanitizer');
+        $playtext = '<div class="overlay">' . $button . '<div class="small"> ' . $terms;
+        $playtext .= '<a href="' . $url . '" target="_blank"> ' . $cond . '</a>';
 
         if (!preg_match("=youtube.*embed/([\\w-]+)=i", $url, $matches)) {
             return $url;
         }
-
+		// Set all the attributes and replace the node with the noew node.
         $v = $matches[1];
         $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?v=$v");
-        $newDiv = $node->ownerDocument->createElement('div');
-        $newDiv->setAttribute('class',"video-wrapped");
-        $newDiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $newDiv->setAttribute('style',"background-image: url($preview);background-position:center; background-repeat: no-repeat;");
-
-        $newDiv->setAttribute('data-embed-frame',$node->ownerDocument->saveHTML($node));
-        $newDiv->setAttribute('data-embed-play',$PLAY_TEXT);
-        return $newDiv;
+        $newdiv = $node->ownerDocument->createElement('div');
+        $newdiv->setAttribute('class', "video-wrapped");
+        $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
+        $newdiv->setAttribute('style', "background-image: url($preview);background-position:center; background-repeat: no-repeat;");
+		$newdiv->setAttribute('data-embed-play', $playtext);
+        $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
+        return $newdiv;
     }
 
 }
