@@ -110,7 +110,7 @@ EOT;
         $playtext = '<div class="overlay">' . $button . '<div class="small"> ' . $terms;
         $playtext .= '<a href="' . $url . '" target="_blank"> ' . $cond . '</a>';
 
-        if (!preg_match("=youtube.*embed/([\\w-]+)=i", $url, $matches)) {
+        if (preg_match("=youtube.*embed/([\\w-]+)=i", $url, $matches)) {
             return $url;
         }
 		// Set all the attributes and replace the node with the noew node.
