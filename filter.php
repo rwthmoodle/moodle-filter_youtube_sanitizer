@@ -75,7 +75,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 	*
 	* @param object $node contains the DOMDoc object
 	* @param string $url string conatining th e urk from the secific iframe
-	* @return String that contaains the HTML for the embedded videos
+	* @return  string $newdiv that contaains the HTML for the embedded videos
 	*/
     public function video_embed_privacy_translate($node, $url) {
 
