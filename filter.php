@@ -115,11 +115,11 @@ EOT;
         }
 		// Set all the attributes and replace the node with the noew node.
         // $v = $matches[1];
-        $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?v=$v");
+        // $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?v=$v");
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $newdiv->setAttribute('style', "background-image: url($preview);background-position:center; background-repeat: no-repeat;");
+        // $newdiv->setAttribute('style', "background-image: url($preview);background-position:center; background-repeat: no-repeat;");
 		$newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
