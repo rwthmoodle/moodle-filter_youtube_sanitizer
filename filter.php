@@ -75,12 +75,14 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         //Return the changed HTML string
         return $dom->saveHTML($dom);
     }
-	/**
-	 * i belong to a functionality
-	 *
-	 * @param $node contains the DOMDoc object
-	 * @param $url string conatining th e urk from the secific iframe
-	 */
+
+	* this function does place the JavaScript insende the head of the page und creates the DOMDoc nodes to be prcessed by the
+	* filter function of this class
+	*
+	* @param object $node contains the DOMDoc object
+	* @param string $url string conatining th e urk from the secific iframe
+	* @return  string $newdiv that contaains the HTML for the embedded videos
+	*/
     public function video_embed_privacy_translate($node, $url) {
 
         global $PAGE, $CFG;
@@ -114,11 +116,11 @@ EOT;
         $playtext = '<div class="overlay">' . $button . '<div class="small"> ' . $terms;
         $playtext .= '<a href="' . $url . '" target="_blank"> ' . $cond . '</a>';
 
-        if (!preg_match("=youtube.*embed/([\\w-]+)=i", $url, $matches)) {
+        if (preg_match("=youtube.*embed/([\\w-]+)=i", $url, $matches)) {
             return $url;
         }
 		// Set all the attributes and replace the node with the noew node.
-        $v = $matches[1];
+        // $v = $matches[1];
         $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?v=$v");
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");

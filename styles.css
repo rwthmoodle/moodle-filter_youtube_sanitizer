@@ -61,7 +61,7 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
 html body div.center.box.generalbox div.no-overflow div.video-wrapped,
 html body div.center.box.generalbox div.no-overflow iframe {
   background-color: #1e1e1e;
-  max-width: 100%;
+  max-width: calc(300px * 1.7777779);
   /*width: calc(100% - 10px);*/
   width: 100%;
   cursor: pointer;
