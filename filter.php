@@ -114,7 +114,7 @@ EOT;
             return $url;
         }
 		// Set all the attributes and replace the node with the noew node.
-        $v = $matches[1];
+        // $v = $matches[1];
         $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?v=$v");
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
