@@ -1,7 +1,7 @@
 require(['jquery'], function($) {
     $(function() {
         $(".video-wrapped").each(function() {
-		console.log($(this));
+	
             $(this)
             .empty()
             .append($('<div class="video-wrapped-play">').html($(this).attr('data-embed-play')));
