@@ -20,13 +20,12 @@ html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_you
 }
 html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube div.video-wrapped {
   width: 100%;
-}
-html body div.center.box.generalbox div.no-overflow div.video-wrapped {
-  width: calc(50% - 10px);
+  max-width: calc(50% - 5px);
   height: auto;
   display: inline-block;
   float: left;
   text-align: center;
+  
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play {
   position: relative;

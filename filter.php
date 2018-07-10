@@ -20,9 +20,9 @@
  *  This filter will replace any links to a media file with
  *  a media plugin that plays that media inline
  *
- * @package    filter_youtube_sanitizer
+ * @package    filter youtube sanitizer 
  * @subpackage mediaplugin
- * @copyright  2018 Markus Offermann
+ * @copyright  2004 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,20 +34,20 @@ defined('MOODLE_INTERNAL') || die();
  * It is highly recommended to configure servers to be compatible with our slasharguments,
  * otherwise the "?d=600x400" may not work.
  *
- * @package    filter_youtube_sanitizer
+ * @package    filter youtube sanitizer
  * @subpackage youtube-sanitizer
  * @copyright  2018 Markus Offermann  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_youtube_sanitizer extends moodle_text_filter {
 	/**
-	* Get the DOMDocument from the context. Find all the iframes and replace them with divs.
-	* Add the script to bind the click functionality to the div so the Video starts on click.
-	*
-	* @param string $text contains string
-	* @param array $options array of window sizes for the video
-	* @return  object DOMDoc object
-	*/
+	 * Get the DOMDocument from the context. Find all the iframes and replace them with divs.
+	 * Add the script to bind the click functionality to the div so the Video starts on click.
+	 *
+	 * @param $text contains string
+	 * @param array of window sizes for the video
+	 * @return  string
+	 */
     public function filter($text, array $options = array()) {
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
@@ -65,11 +65,17 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                 $node->parentNode->replaceChild($newNode, $node);
             }
         }
+        // foreach ($dom->getElementsByTagName('a') as $nodeA) {
+        //     $hrefA = $nodeA->getAttribute('href');
+        //     if(preg_match("=youtube.*="/*embed/=i"*/, $hrefA)) {
+        //         echo '<pre>';var_dump($hrefA);echo '</pre>';
+		//
+        //     }
+        // }
         //Return the changed HTML string
         return $dom->saveHTML($dom);
     }
 
-	/**
 	* this function does place the JavaScript insende the head of the page und creates the DOMDoc nodes to be prcessed by the
 	* filter function of this class
 	*
