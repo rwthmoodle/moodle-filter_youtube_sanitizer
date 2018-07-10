@@ -55,6 +55,7 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
   width: 68px;
   color: #232323;
   min-height: 294px;
+  max-width: 400px;
   /*margin-top: calc(150px - 21px);*/
   /*margin-bottom: calc(150px - 21px);*/
 }
@@ -64,6 +65,7 @@ html body div.center.box.generalbox div.no-overflow iframe {
   max-width: calc(300px * 1.7777779);
   /*width: calc(100% - 10px);*/
   width: 100%;
+  max-width: calc(50% - 5px);
   cursor: pointer;
   min-height: 300px;
 }
