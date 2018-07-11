@@ -6,33 +6,37 @@ html body div.center.box.generalbox div.no-overflow {
   width: 100%;
   overflow: hidden;
 }
-html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube {
+html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
+html body .center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
   position: relative;
   display: inline-block;
   height: auto;
   width: calc(50% - 10px);
+  max-width: calc(300px * 1.777);
   float: left;
   vertical-align: top;
+  background-color: #1e1e1e;
+  margin: 0 0 0 0;
   margin-right: 5px;
+  margin-bottom: 5px;
+  max-height: 300px;
+
+}
+
+html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	max-width: calc(300px * 1.777);
+	/*float: left;*/
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 5px;
+	/*max-width: calc(100% - 5px);*/
 }
 html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube + br, html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube + p:empty {
   display: none;
-}
-html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube div.video-wrapped {
-  width: 100%;
-  max-width: calc(50% - 5px);
-  height: auto;
-  display: inline-block;
-  float: left;
-  text-align: center;
-  
-}
-html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play {
-  position: relative;
-  display: inline-block;
-  height: auto;
-  width: 100%;
-  /*max-width: calc(100% - 5px);*/
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
@@ -54,9 +58,12 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
   width: 68px;
   color: #232323;
   min-height: 294px;
-  max-width: 400px;
+  max-width: 600px;
   /*margin-top: calc(150px - 21px);*/
   /*margin-bottom: calc(150px - 21px);*/
+}
+html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
+	margin-right: 5px;
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped,
 html body div.center.box.generalbox div.no-overflow iframe {
@@ -64,9 +71,10 @@ html body div.center.box.generalbox div.no-overflow iframe {
   max-width: calc(300px * 1.7777779);
   /*width: calc(100% - 10px);*/
   width: 100%;
-  max-width: calc(50% - 5px);
+  /*max-width: calc(50% - 5px);*/
   cursor: pointer;
   min-height: 300px;
+  margin-bottom: 10px;
 }
 html .path-yt {
   fill: #282928;
@@ -76,13 +84,18 @@ html .path-yt:hover {
   fill: #ff0000;
   width: 68px;
 }
+p:empty {
+	display: none !important;
+}
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
-	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped,
-	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube iframe {
+	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped/*,
+	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube iframe */{
+		background-color: #1e1e1e;
 		position: relative;
 		display: block;
 		height: auto;
 		width: calc(100% - 5px);
+		max-width: calc(300px * 1.777);
   	}
 }
