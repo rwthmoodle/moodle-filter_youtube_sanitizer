@@ -17,10 +17,9 @@ html body .center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_yo
   vertical-align: top;
   background-color: #1e1e1e;
   margin: 0 0 0 0;
-  margin-right: 5px;
+  /* margin-right: 5px; */
   margin-bottom: 5px;
   max-height: 300px;
-
 }
 
 html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
@@ -72,7 +71,7 @@ html body div.center.box.generalbox div.no-overflow iframe {
   width: 100%;
   cursor: pointer;
   max-height: 300px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 html .path-yt {
   fill: #282928;
@@ -92,7 +91,7 @@ p:empty {
 		position: relative;
 		display: block;
 		height: auto;
-		width: calc(100% - 5px);
+		width: 100%;
 		max-width: calc(300px * 1.777);
-  	}
+		}
 }
