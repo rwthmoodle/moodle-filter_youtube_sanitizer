@@ -144,6 +144,14 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 }
 .mediaplugin.mediaplugin_youtube {
 	margin-top: 0;
+	max-height: 300px;
+	display: inline-block;
+	width: 100%;
+	background-color: rgba(30, 30, 30, 0.88);
+	max-width: calc(300px * 1.777);
+}
+.contentwithoutlink {
+	padding-right: 0;
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
