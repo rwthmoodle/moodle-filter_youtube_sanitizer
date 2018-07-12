@@ -11,16 +11,15 @@ html body .center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_yo
   position: relative;
   display: inline-block;
   height: auto;
-  width: calc(50% - 10px);
+  width: calc(50% - 5px);
   max-width: calc(300px * 1.777);
   float: left;
   vertical-align: top;
   background-color: #1e1e1e;
   margin: 0 0 0 0;
-  margin-right: 5px;
+  /* margin-right: 5px; */
   margin-bottom: 5px;
   max-height: 300px;
-
 }
 
 html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
@@ -28,6 +27,7 @@ html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin
 	display: inline-block;
 	width: 100%;
 	height: auto;
+	width: calc(50% - 5px);
 	max-width: calc(300px * 1.777);
 	/*float: left;*/
 	text-align: center;
@@ -65,16 +65,15 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
 html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
 	margin-right: 5px;
 }
-html body div.center.box.generalbox div.no-overflow div.video-wrapped,
-html body div.center.box.generalbox div.no-overflow iframe {
+/*html body*/ div.center.box.generalbox div.no-overflow div.video-wrapped,
+/*html body*/ div.center.box.generalbox div.no-overflow iframe {
   background-color: #1e1e1e;
-  max-width: calc(300px * 1.7777779);
-  /*width: calc(100% - 10px);*/
-  width: 100%;
-  /*max-width: calc(50% - 5px);*/
+  /*min-width: calc(300px * 1.777);*/
+  max-width: calc(300px * 1.777);
+  width: calc(50% - 5px);
   cursor: pointer;
-  min-height: 300px;
-  margin-bottom: 10px;
+  max-height: 300px;
+  margin-bottom: 5px;
 }
 html .path-yt {
   fill: #282928;
@@ -89,13 +88,12 @@ p:empty {
 }
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
-	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped/*,
-	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube iframe */{
+	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
 		background-color: #1e1e1e;
 		position: relative;
 		display: block;
 		height: auto;
-		width: calc(100% - 5px);
+		width: 100%;
 		max-width: calc(300px * 1.777);
-  	}
+	}
 }
