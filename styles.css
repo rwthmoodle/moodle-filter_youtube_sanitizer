@@ -184,6 +184,9 @@ html body .editing .section .activity .contentwithoutlink .contentwithoutlink  {
 .activity.label.modtype_label.yui3-dd-drop {
 
 }
+.editing .section .activity .contentwithoutlink {
+	padding-right: 0;
+}
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
