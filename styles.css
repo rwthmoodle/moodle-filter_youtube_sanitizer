@@ -66,7 +66,9 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
 	margin-right: 5px;
 }
 /*html body*/ div.center.box.generalbox div.no-overflow div.video-wrapped,
-/*html body*/ div.center.box.generalbox div.no-overflow iframe {
+/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
+/*html body*/ div.center.box.generalbox div.no-overflow iframe,
+/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow iframe {
   background-color: #1e1e1e;
   /*min-width: calc(300px * 1.777);*/
   max-width: calc(300px * 1.777);
@@ -85,6 +87,94 @@ html .path-yt:hover {
 }
 p:empty {
 	display: none !important;
+}
+.video-wrapped {
+    width:  calc(300px * 1.777);
+    background-color: rgba(30, 30, 30, 0.88);
+    min-height:  300px;
+    display: inline-block;
+    position: relative;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	max-height:300px;
+/* 	width: calc(50% - 5px); */
+	max-width: calc(300px * 1.777);
+	/*float: left;*/
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 5px;
+	/*max-width: calc(100% - 5px);*/
+}
+html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(30, 30, 30, 0.88);
+  color: #e1e1e1;
+  font-size: 0.7em;
+  list-style: 3em;
+  padding: 0.5em;
+  width: 100%;
+  padding: 5px 15px;
+}
+
+.video-wrapped-play {
+    width: 100%;
+}
+
+.video-wrapped {
+    width:  calc(300px * 1.777);
+    background-color: rgba(30, 30, 30, 0.88);
+    min-height:  300px;
+    display: inline-block;
+    position: relative;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	max-height:300px;
+/* 	width: calc(50% - 5px); */
+	max-width: calc(300px * 1.777);
+	/*float: left;*/
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 5px;
+	vertical-align: top;
+	margin-right: 5px;
+	/*max-width: calc(100% - 5px);*/
+}
+.mediaplugin.mediaplugin_youtube {
+	margin-top: 0;
+}
+html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(30, 30, 30, 0.88);
+  color: #e1e1e1;
+  font-size: 0.7em;
+  list-style: 3em;
+  padding: 0.5em;
+  width: 100%;
+  padding: 5px 15px;
+}
+
+
+.overlay {
+    width:  100%;
+    display: block;
+    position:relative;
+    max-height: 300px;
+}
+
+.privacy-play-btn {
+    max-width:  68px;
+    margin-top: calc(150px - 34px);
+    margin-bottom: 99px;
+}
+html body .editing .section .activity .contentwithoutlink .contentwithoutlink  {
+	padding-right: 0;
+}
+.activity.label.modtype_label.yui3-dd-drop {
+
 }
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
