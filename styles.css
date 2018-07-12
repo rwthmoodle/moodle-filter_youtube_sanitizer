@@ -69,11 +69,9 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped,
 html body div.center.box.generalbox div.no-overflow iframe {
   background-color: #1e1e1e;
   max-width: calc(300px * 1.7777779);
-  /*width: calc(100% - 10px);*/
   width: 100%;
-  /*max-width: calc(50% - 5px);*/
   cursor: pointer;
-  min-height: 300px;
+  max-height: 300px;
   margin-bottom: 10px;
 }
 html .path-yt {
@@ -89,8 +87,7 @@ p:empty {
 }
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
-	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped/*,
-	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube iframe */{
+	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
 		background-color: #1e1e1e;
 		position: relative;
 		display: block;
