@@ -55,8 +55,6 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
   color: #232323;
   min-height: 294px;
   max-width: 600px;
-  /*margin-top: calc(150px - 21px);*/
-  /*margin-bottom: calc(150px - 21px);*/
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
 	margin-right: 5px;
@@ -93,13 +91,10 @@ p:empty {
 	width: 100%;
 	height: auto;
 	max-height:300px;
-/* 	width: calc(50% - 5px); */
 	max-width: calc(300px * 1.777);
-	/*float: left;*/
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
-	/*max-width: calc(100% - 5px);*/
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
@@ -118,24 +113,22 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 }
 
 .video-wrapped {
-    width:  calc(300px * 1.777);
-    background-color: rgba(30, 30, 30, 0.88);
-    min-height:  300px;
-    display: inline-block;
-    position: relative;
+  width:  calc(300px * 1.777);
+  background-color: rgba(30, 30, 30, 0.88);
+  min-height:  300px;
+  display: inline-block;
+  position: relative;
 	display: inline-block;
 	width: 100%;
 	height: auto;
 	max-height:300px;
-/* 	width: calc(50% - 5px); */
 	max-width: calc(300px * 1.777);
-	/*float: left;*/
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
 	vertical-align: top;
 	margin-right: 5px;
-	/*max-width: calc(100% - 5px);*/
+	
 }
 .mediaplugin.mediaplugin_youtube {
 	margin-top: 0;
@@ -163,15 +156,6 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
   width: 100%;
   padding: 5px 15px;
 }
-
-/*
-.overlay {
-    width:  100%;
-    display: block;
-    position:relative;
-    max-height: 300px;
-}*/
-
 .privacy-play-btn {
     max-width:  68px;
 }
