@@ -17,7 +17,6 @@ html body .center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_yo
   vertical-align: top;
   background-color: #1e1e1e;
   margin: 0 0 0 0;
-  /* margin-right: 5px; */
   margin-bottom: 5px;
   max-height: 300px;
 }
@@ -27,13 +26,10 @@ html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin
 	display: inline-block;
 	width: 100%;
 	height: auto;
-	width: calc(50% - 5px);
 	max-width: calc(300px * 1.777);
-	/*float: left;*/
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
-	/*max-width: calc(100% - 5px);*/
 }
 html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube + br, html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube + p:empty {
   display: none;
@@ -65,14 +61,13 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
 html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
 	margin-right: 5px;
 }
-/*html body*/ div.center.box.generalbox div.no-overflow div.video-wrapped,
-/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
-/*html body*/ div.center.box.generalbox div.no-overflow iframe,
-/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow iframe {
+div.center.box.generalbox div.no-overflow div.video-wrapped,
+div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
+div.center.box.generalbox div.no-overflow iframe,
+div.center.box.generalbox div.no-overflow div.no-overflow iframe {
   background-color: #1e1e1e;
-  /*min-width: calc(300px * 1.777);*/
-  max-width: calc(300px * 1.777);
-  width: calc(50% - 5px);
+
+  width: 100%;
   cursor: pointer;
   max-height: 300px;
   margin-bottom: 5px;
@@ -147,11 +142,15 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 	max-height: 300px;
 	display: inline-block;
 	width: 100%;
+	margin-right: 5px;
 	background-color: rgba(30, 30, 30, 0.88);
 	max-width: calc(300px * 1.777);
 }
 .contentwithoutlink {
 	padding-right: 0;
+}
+html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube {
+	margin-right: 5px;
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
@@ -165,18 +164,16 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
   padding: 5px 15px;
 }
 
-
+/*
 .overlay {
     width:  100%;
     display: block;
     position:relative;
     max-height: 300px;
-}
+}*/
 
 .privacy-play-btn {
     max-width:  68px;
-    margin-top: calc(150px - 34px);
-    margin-bottom: 99px;
 }
 html body .editing .section .activity .contentwithoutlink .contentwithoutlink  {
 	padding-right: 0;
