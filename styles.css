@@ -96,10 +96,12 @@ p:empty {
 	margin-top: 0;
 	margin-bottom: 5px;
 }
+
 .overlay {
-	display: inline-block;	
+	display: inline-block;
 	max-width:calc(300px * 1.777);
 }
+
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
   bottom: 0;

@@ -121,8 +121,8 @@ EOT;
 
 		/*=========== TODO ==================*/
 		/**
-		 * der folgende code sollte besser in der nächste methode stehen
-		 * hier sollte besser nur die url übergeben werden.
+		 * der folgende code sollte besser in der nÃ¤chste methode stehen
+		 * hier sollte besser nur die url Ã¼bergeben werden.
 		 */
 
         $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?");
