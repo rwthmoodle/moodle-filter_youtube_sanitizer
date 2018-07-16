@@ -17,7 +17,6 @@ html body .center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_yo
   vertical-align: top;
   background-color: #1e1e1e;
   margin: 0 0 0 0;
-  /* margin-right: 5px; */
   margin-bottom: 5px;
   max-height: 300px;
 }
@@ -27,13 +26,10 @@ html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin
 	display: inline-block;
 	width: 100%;
 	height: auto;
-	width: calc(50% - 5px);
 	max-width: calc(300px * 1.777);
-	/*float: left;*/
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
-	/*max-width: calc(100% - 5px);*/
 }
 html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube + br, html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_youtube + p:empty {
   display: none;
@@ -66,7 +62,9 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
 	margin-right: 5px;
 }
 /*html body*/ div.center.box.generalbox div.no-overflow div.video-wrapped,
-/*html body*/ div.center.box.generalbox div.no-overflow iframe {
+/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
+/*html body*/ div.center.box.generalbox div.no-overflow iframe,
+/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow iframe {
   background-color: #1e1e1e;
   /*min-width: calc(300px * 1.777);*/
   max-width: calc(300px * 1.777);
@@ -86,6 +84,107 @@ html .path-yt:hover {
 p:empty {
 	display: none !important;
 }
+.video-wrapped {
+    width:  calc(300px * 1.777);
+    background-color: rgba(30, 30, 30, 0.88);
+    min-height:  300px;
+    display: inline-block;
+    position: relative;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	max-height:300px;
+/* 	width: calc(50% - 5px); */
+	max-width: calc(300px * 1.777);
+	/*float: left;*/
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 5px;
+	/*max-width: calc(100% - 5px);*/
+}
+html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(30, 30, 30, 0.88);
+  color: #e1e1e1;
+  font-size: 0.7em;
+  list-style: 3em;
+  padding: 0.5em;
+  width: 100%;
+  padding: 5px 15px;
+}
+
+.video-wrapped-play {
+    width: 100%;
+}
+
+.video-wrapped {
+    width:  calc(300px * 1.777);
+    background-color: rgba(30, 30, 30, 0.88);
+    min-height:  300px;
+    display: inline-block;
+    position: relative;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	max-height:300px;
+/* 	width: calc(50% - 5px); */
+	max-width: calc(300px * 1.777);
+	/*float: left;*/
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 5px;
+	vertical-align: top;
+	margin-right: 5px;
+	/*max-width: calc(100% - 5px);*/
+}
+.mediaplugin.mediaplugin_youtube {
+	margin-top: 0;
+	max-height: 300px;
+	display: inline-block;
+	width: 100%;
+	margin-right: 5px;
+	background-color: rgba(30, 30, 30, 0.88);
+	max-width: calc(300px * 1.777);
+}
+.contentwithoutlink {
+	padding-right: 0;
+}
+html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube {
+	margin-right: 5px;
+}
+html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(30, 30, 30, 0.88);
+  color: #e1e1e1;
+  font-size: 0.7em;
+  list-style: 3em;
+  padding: 0.5em;
+  width: 100%;
+  padding: 5px 15px;
+}
+
+/*
+.overlay {
+    width:  100%;
+    display: block;
+    position:relative;
+    max-height: 300px;
+}*/
+
+.privacy-play-btn {
+    max-width:  68px;
+}
+html body .editing .section .activity .contentwithoutlink .contentwithoutlink  {
+	padding-right: 0;
+}
+.activity.label.modtype_label.yui3-dd-drop {
+
+}
+.editing .section .activity .contentwithoutlink {
+	padding-right: 0;
+}
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
@@ -95,5 +194,28 @@ p:empty {
 		height: auto;
 		width: 100%;
 		max-width: calc(300px * 1.777);
+	}
+	.video-wrapped {
+	    width:  calc(300px * 1.777);
+	    background-color: rgba(30, 30, 30, 0.88);
+	    position: relative;
+		display: block;
+		width: 100%;
+		height: auto;
+		max-height:300px;
+		max-width: calc(300px * 1.777);
+		text-align: center;
+		vertical-align: top;
+		margin: 0 auto;
+
+	}
+	.mediaplugin.mediaplugin_youtube {
+		margin-top: 0;
+		max-height: 300px;
+		display: block;
+		width: 100%;
+		background-color: rgba(30, 30, 30, 0.88);
+		max-width: calc(300px * 1.777);
+		margin: 0 auto;
 	}
 }
