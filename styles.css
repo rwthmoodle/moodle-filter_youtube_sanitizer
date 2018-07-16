@@ -55,20 +55,17 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
   color: #232323;
   min-height: 294px;
   max-width: 600px;
-  /*margin-top: calc(150px - 21px);*/
-  /*margin-bottom: calc(150px - 21px);*/
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
 	margin-right: 5px;
 }
-/*html body*/ div.center.box.generalbox div.no-overflow div.video-wrapped,
-/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
-/*html body*/ div.center.box.generalbox div.no-overflow iframe,
-/*html body*/ div.center.box.generalbox div.no-overflow div.no-overflow iframe {
+div.center.box.generalbox div.no-overflow div.video-wrapped,
+div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
+div.center.box.generalbox div.no-overflow iframe,
+div.center.box.generalbox div.no-overflow div.no-overflow iframe {
   background-color: #1e1e1e;
-  /*min-width: calc(300px * 1.777);*/
-  max-width: calc(300px * 1.777);
-  width: calc(50% - 5px);
+
+  width: 100%;
   cursor: pointer;
   max-height: 300px;
   margin-bottom: 5px;
@@ -94,13 +91,14 @@ p:empty {
 	width: 100%;
 	height: auto;
 	max-height:300px;
-/* 	width: calc(50% - 5px); */
 	max-width: calc(300px * 1.777);
-	/*float: left;*/
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
-	/*max-width: calc(100% - 5px);*/
+}
+.overlay {
+	display: inline-block;	
+	max-width:calc(300px * 1.777);
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
@@ -115,7 +113,10 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 }
 
 .video-wrapped-play {
-    width: 100%;
+	min-height: 300px;
+	width: 100%;
+	text-align: center;
+	vertical-align: top;
 }
 
 .video-wrapped {
@@ -128,15 +129,12 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 	width: 100%;
 	height: auto;
 	max-height:300px;
-/* 	width: calc(50% - 5px); */
 	max-width: calc(300px * 1.777);
-	/*float: left;*/
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
 	vertical-align: top;
 	margin-right: 5px;
-	/*max-width: calc(100% - 5px);*/
 }
 .mediaplugin.mediaplugin_youtube {
 	margin-top: 0;
@@ -156,22 +154,23 @@ html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
   bottom: 0;
-  background-color: rgba(30, 30, 30, 0.88);
-  color: #e1e1e1;
+  background-color: #1e1e1e;
+  color: #e2e2e2;
   font-size: 0.7em;
   list-style: 3em;
   padding: 0.5em;
   width: 100%;
   padding: 5px 15px;
 }
+.video-wrapped-play .overlay {
+	position: relative;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background-color: #1e1e1e;
+	color: #e2e2e2;
+}
 
-/*
-.overlay {
-    width:  100%;
-    display: block;
-    position:relative;
-    max-height: 300px;
-}*/
 
 .privacy-play-btn {
     max-width:  68px;
@@ -184,6 +183,15 @@ html body .editing .section .activity .contentwithoutlink .contentwithoutlink  {
 }
 .editing .section .activity .contentwithoutlink {
 	padding-right: 0;
+}
+html body div.no-overflow svg.privacy-play-btn {
+
+	height:calc(300px - 30px);
+
+}
+html body div.no-overflow svg.privacy-play-btn div.small {
+	position:absolute;
+	bottom: 0;
 }
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
