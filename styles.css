@@ -120,7 +120,26 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 	text-align: center;
 	vertical-align: top;
 }
+.yt-link-wrapper {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+}
+.yt-link-wrapper a,
+.yt-link-wrapper span {
+    font-size: 100%;
 
+}
+.yt-link-wrapper span {
+	color: #e1e1e1;
+}
+.yt-link-wrapper a {
+	color: #8EBAE5;
+}
+.yt-link-wrapper a:hover {
+	color: #C7DDF2;
+}
 .video-wrapped {
     background-color: rgba(30, 30, 30, 0.88);
     min-height:  300px;

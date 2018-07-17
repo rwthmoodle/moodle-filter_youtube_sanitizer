@@ -105,27 +105,13 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 EOT;
 		// setting all the needed  strings
         $urlg = get_string('url', 'filter_youtube_sanitizer');
-
         $nojstext = get_string('no-js-message', 'filter_youtube_sanitizer');
         $terms = get_string('terms', 'filter_youtube_sanitizer');
         $cond = get_string('conditions', 'filter_youtube_sanitizer');
-        $playtext = '<div class="overlay">' . $button . '<div class="small"> ' . $terms;
-        $playtext .= '<a href="' . $urlg . '" target="_blank"> ' . $cond . '</a>';
-
-        if (preg_match("=youtube.*embed/([\\w-]+)=i", $url, $matches)) {
-
-			// return $url;
-        }
-		// Set all the attributes and replace the node with the noew node.
-        // $v = $matches[1];
-
-		/*=========== TODO ==================*/
-		/**
-		 * der folgende code sollte besser in der nÃ¤chste methode stehen
-		 * hier sollte besser nur die url Ã¼bergeben werden.
-		 */
-
-        $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?");
+        $playtext = '<div class="overlay">' . $button . '</div>';
+		$playtext .= '<div class="yt-link-wrapper"><span class="small"> ' . $terms . '</span>';
+        $playtext .= '<a href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
+       	$preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?");
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
