@@ -8,31 +8,36 @@ require(['jquery'], function($) {
 				$(this).removeAttr('style').unbind("click");
 			});
         });*/
-		$('.small > a').each(function(obj) {
-			console.log(obj);
-			$(this).on('click', function(e) {
-				if(e.bubbles == true) {
-					console.log('BLA');
-				}
-				console.log($(this));
-				console.log(e.currentTarget);
-				e.preventDefault();
+		function applyVideoWrapper() {
+
+			$(".video-wrapped").each(function(obj) {
+				$(this).empty().append($('<div class="video-wrapped-play">').html($(this).attr('data-embed-play')));
+				$(this).click(function() {
+					var videoWrapped = $(this);
+					videoWrapped.find('.video-wrapped-play').remove();
+					var videoWrapped = $(this).parents('.video-wrapped');
+
+					$(this).append($(this).attr('data-embed-frame').replace(/(\/embed\/[^"]*\\?[^"]*)/, '$1?autoplay=1'));
+					$(this).find('button').mousedown();
+					$(this).removeAttr('style').unbind("click");
+				});
 			});
-		});
+			preventBubbling();
+		}
+		function preventBubbling() {
+			$('.yt-link-wrapper a, yt-link-wrapper span').each(function(index) {
+				console.log(index, ':  ', $(this));
+				console.log($(this));
+				$(this).click(function(event) {
+					event.stopPropagation();
+					console.log($(event));
+				});
+			});
+		}
+
+		applyVideoWrapper();
 		/*$('.button-yt').each(function(e) {
 			$(this).StopPropagation();
 		})*/
-		$(".video-wrapped").each(function(obj) {
-			var oOverlay = $(obj).find('.overlay');
-            $(this).empty().append($('<div class="video-wrapped-play">').html($(this).attr('data-embed-play')));
-			$('.video-wrapped').click(function(e) {
-				var videoWrapped = $(this);
-				videoWrapped.find('.video-wrapped-play').remove();
-				var videoWrapped = $(this).parents('.video-wrapped');
-				$(this).append($(this).attr('data-embed-frame').replace(/(\/embed\/[^"]*\\?[^"]*)/, '$1?autoplay=1'));
-				$(this).find('button').mousedown();
-				$(this).removeAttr('style').unbind("click");
-			});
-        });
     });
 });
