@@ -6,6 +6,11 @@ html body div.center.box.generalbox div.no-overflow {
   width: 100%;
   overflow: hidden;
 }
+.no-overflow span.mediaplugin.mediaplugin_youtube,
+.no-overflow div.video-wrapped {
+	max-width: calc(300px * 1.777); 
+
+}
 html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
 html body .center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
   position: relative;
@@ -140,7 +145,7 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 .yt-link-wrapper a:hover {
 	color: #C7DDF2;
 }
-.video-wrapped {
+.no-overflow div.video-wrapped {
     background-color: rgba(30, 30, 30, 0.88);
     min-height:  300px;
     display: inline-block;
@@ -156,7 +161,7 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 	vertical-align: top;
 	margin-right: 5px;
 }
-.mediaplugin.mediaplugin_youtube {
+.no-overflow span.mediaplugin.mediaplugin_youtube {
 	margin-top: 0;
 	max-height: 300px;
 	display: inline-block;
