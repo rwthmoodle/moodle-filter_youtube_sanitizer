@@ -3,7 +3,7 @@ require(['jquery'], function($) {
 		function applyVideoWrapper() {
 			$(".video-wrapped").each(function(obj) {
 				$(this).empty().append($('<div class="video-wrapped-play">').html($(this).attr('data-embed-play')));
-				$(this).click(function() {
+				$(this).on('click mousedown', function() {
 					var videoWrapped = $(this);
 					videoWrapped.find('.video-wrapped-play').remove();
 					var videoWrapped = $(this).parents('.video-wrapped');
@@ -19,7 +19,7 @@ require(['jquery'], function($) {
 			$('.yt-link-wrapper a, yt-link-wrapper span').each(function(index) {
 				console.log(index, ':  ', $(this));
 				console.log($(this));
-				$(this).click(function(event) {
+				$(this).on('click mousedown', function(event) {
 					event.stopPropagation();
 					console.log($(event));
 				});
