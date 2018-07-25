@@ -2,24 +2,17 @@
 html body div.center.box.generalbox {
   position: relative;
 }
+html body div.course-content div.no-overflow,
 html body div.center.box.generalbox div.no-overflow {
   width: 100%;
   overflow: hidden;
 }
-html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
-html body .center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
-  position: relative;
-  display: inline-block;
-  height: auto;
-  width: calc(50% - 5px);
-  max-width: calc(300px * 1.777);
-  float: left;
-  vertical-align: top;
-  background-color: #1e1e1e;
-  margin: 0 0 0 0;
-  margin-bottom: 5px;
-  max-height: 300px;
+div.no-overflow span.mediaplugin.mediaplugin_youtube {
+	width: 100%;
+	max-width: calc(50% - 10px);
 }
+
+
 
 html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
 	position: relative;
@@ -189,6 +182,30 @@ html body div.no-overflow svg.privacy-play-btn div.small {
 	position:absolute;
 	bottom: 0;
 }
+html body div.no-overflow span.mediaplugin.mediaplugin_youtube,
+html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
+  position: relative;
+  display: inline-block;
+  height: auto;
+  width: calc(50% - 5px);
+  max-width: calc(300px * 1.777);
+  float: left;
+  vertical-align: top;
+  background-color: #1e1e1e;
+  margin: 0 0 0 0;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  max-height: 300px;
+}
+html body div.no-overflow div.video-wrapped {
+	width: calc(50% - 5px);
+}
+
+html body div.no-overflow span.mediaplugin.mediaplugin_youtube iframe,
+html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped iframe {
+    width: 100%;
+
+}
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
@@ -221,5 +238,9 @@ html body div.no-overflow svg.privacy-play-btn div.small {
 		background-color: rgba(30, 30, 30, 0.88);
 		max-width: calc(300px * 1.777);
 		margin: 0 auto;
+	}
+	html body div.no-overflow div.video-wrapped,
+	html body div.no-overflow span.mediaplugin.mediaplugin_youtube {
+		width: calc(100% - 5px);
 	}
 }
