@@ -87,6 +87,10 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $src = $node->getAttribute('src');
         $width = $node->getAttribute('width');
         $height = $node->getAttribute('height');
+		$node->setAttribute('height', 300);
+		$width = 300*1.7777;
+		$node->setAttribute('width', $width);
+echo '<pre>';var_dump($width, $height);echo '</pre>';
 		// Adding the Play Button.
         $button = <<<EOT
             <svg class="privacy-play-btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
