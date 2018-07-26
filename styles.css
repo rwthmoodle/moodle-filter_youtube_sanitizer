@@ -206,6 +206,9 @@ html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped
     width: 100%;
 
 }
+fieldset#id_page_video-display-options {
+    display: none;
+} 
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
@@ -239,7 +242,7 @@ html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped
 		max-width: calc(300px * 1.777);
 		margin: 0 auto;
 	}
-	html body div.no-overflow div.video-wrapped,
+	html body div.no-overflow div.video-wrapped,-
 	html body div.no-overflow span.mediaplugin.mediaplugin_youtube {
 		width: calc(100% - 5px);
 	}
