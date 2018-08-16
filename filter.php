@@ -90,7 +90,6 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 		$node->setAttribute('height', 300);
 		$width = 300*1.7777;
 		$node->setAttribute('width', $width);
-echo '<pre>';var_dump($width, $height);echo '</pre>';
 		// Adding the Play Button.
         $button = <<<EOT
             <svg class="privacy-play-btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -114,7 +113,7 @@ EOT;
         $cond = get_string('conditions', 'filter_youtube_sanitizer');
         $playtext = '<div class="overlay">' . $button . '</div>';
 		$playtext .= '<div class="yt-link-wrapper"><span class="small"> ' . $terms . '</span>';
-        $playtext .= '<a href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
+        $playtext .= '<a class="small" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
      //   	$preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?");
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
