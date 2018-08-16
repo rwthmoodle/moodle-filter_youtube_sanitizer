@@ -227,6 +227,9 @@ html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped
 fieldset#id_page_video-display-options {
     display: none;
 }
+div.video-wrapped {
+	max-width: calc(300px * 1.7766) !important;
+}
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
