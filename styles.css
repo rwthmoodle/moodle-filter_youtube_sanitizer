@@ -4,12 +4,10 @@ html body div.center.box.generalbox {
 }
 html body div.course-content div.no-overflow,
 html body div.center.box.generalbox div.no-overflow {
-  width: 100%;
   overflow: hidden;
 }
 div.no-overflow span.mediaplugin.mediaplugin_youtube {
 	width: 100%;
-	max-width: calc(100% - 10px);
 }
 
 .yt-link-wrapper {
@@ -28,7 +26,9 @@ div.no-overflow span.mediaplugin.mediaplugin_youtube {
 .yt-link-wrapper > a:hover {
 	color:#c7ddf2;
 }
-
+.contentwithoutlink {
+	padding-right: 0;
+}
 .yt-link-wrapper > a + span {
 	text-align: center;
 }
@@ -37,7 +37,8 @@ html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin
 	display: inline-block;
 	width: 100%;
 	height: auto;
-	max-width: calc(300px * 1.7766);
+	width: calc(300px * 1.7766);
+	width:533px;
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
@@ -48,7 +49,7 @@ html body div.center.box.generalbox div.no-overflow .mediaplugin.mediaplugin_you
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
   bottom: 0;
-  background-color: rgba(30, 30, 30, 0.88);
+  background-color: rgb(30, 30, 30);
   color: #e1e1e1;
   font-size: 0.7em;
   list-style: 3em;
@@ -67,16 +68,15 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
   min-height: 294px;
   max-width: 600px;
 }
-html body div.center.box.generalbox div.no-overflow div.video-wrapped  {
-	margin-right: 5px;
-}
+
 div.center.box.generalbox div.no-overflow div.video-wrapped,
 div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
 div.center.box.generalbox div.no-overflow iframe,
 div.center.box.generalbox div.no-overflow div.no-overflow iframe {
   background-color: #1e1e1e;
-  max-width: calc(300px * 1.7766);
-  width: 100%;
+  width: calc(300px * 1.7766);
+  width:533px;
+  max-width: 100%;
   cursor: pointer;
   max-height: 300px;
   margin-bottom: 5px;
@@ -93,16 +93,16 @@ p:empty {
 	display: none !important;
 }
 div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped {
-    width:  calc(300px * 1.7766);
     background-color: rgba(30, 30, 30, 0.88);
-    min-height:  300px;
+    height:  300px;
     display: inline-block;
     position: relative;
 	display: inline-block;
 	width: 100%;
 	height: auto;
 	max-height:300px;
-	max-width: calc(300px * 1.7766);
+	width: calc(300px * 1.7766);
+	width:533px;
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
@@ -127,34 +127,37 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 }
 
 .video-wrapped {
-    background-color: rgba(30, 30, 30, 0.88);
+    background-color: rgba(30, 30, 30);
     min-height:  300px;
     position: relative;
 	display: inline-block;
-	width: 100%;
-	max-width:  calc(300px * 1.7766);
+	max-width: 100%;
+	width:  calc(300px * 1.7766);
+	width:533px;
 	height: auto;
 	max-height:300px;
 	text-align: center;
 	margin-top: 0;
 	margin-bottom: 5px;
 	vertical-align: top;
-	margin-right: 5px;
+	/* margin-right: 5px; */
 }
 .mediaplugin.mediaplugin_youtube {
 	margin-top: 0;
 	max-height: 300px;
 	display: inline-block;
 	width: 100%;
-	margin-right: 5px;
-	background-color: rgba(30, 30, 30, 0.88);
-	max-width: calc(300px * 1.7766);
+	/* margin-right: 5px; */
+	background-color: rgba(30, 30, 30);
+	width: calc(300px * 1.7766);
+	width:533px;
+
 }
 .contentwithoutlink {
 	padding-right: 0;
 }
 html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube {
-	margin-right: 5px;
+	/* margin-right: 5px; */
 }
 html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-wrapped-play div.small {
   position: absolute;
@@ -203,8 +206,9 @@ html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped
   position: relative;
   display: inline-block;
   height: auto;
-  width: 100%;
-  max-width: calc(300px * 1.7766);
+  max-width: 100%;
+  width:calc(300px * 1.7766);
+  width:533px;
   /*float: left;*/
   vertical-align: top;
   background-color: #1e1e1e;
@@ -212,13 +216,13 @@ html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped
   margin-bottom: 5px;
   margin-right: 5px;
   max-height: 300px;
+  overflow: hidden;
 }
-html body div.no-overflow div.video-wrapped {
-	/*width: calc(50% - 5px);*/
-	max-width: calc(300px * 1.7766);
+div.video-wrapped {
+	width: 533px !important;
+	overflow: hidden;
 
 }
-
 html body div.no-overflow span.mediaplugin.mediaplugin_youtube iframe,
 html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped iframe {
     width: 100%;
@@ -227,8 +231,9 @@ html body div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped
 fieldset#id_page_video-display-options {
     display: none;
 }
-div.video-wrapped {
-	max-width: calc(300px * 1.7766) !important;
+.editing .section .activity .contentwithoutlink,
+.editing .section .activity .activityinstance {
+	padding-right: 0px;
 }
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
@@ -237,17 +242,21 @@ div.video-wrapped {
 		position: relative;
 		display: block;
 		height: auto;
-		width: 100%;
-		max-width: calc(300px * 1.7766);
+		max-width: 100%;
+		width: calc(300px * 1.7766);
+		width:533px;
+
 	}
 	.video-wrapped {
-	    background-color: rgba(30, 30, 30, 0.88);
+	    /* background-color: rgba(30, 30, 30, 0.88); */
 	    position: relative;
 		display: block;
-		width: 100%;
+		max-width: 100%;
 		height: auto;
 		max-height:300px;
-		max-width: calc(300px * 1.7766);
+		width: calc(300px * 1.7766);
+		width:533px;
+
 		text-align: center;
 		vertical-align: top;
 		margin: 0 auto;
@@ -257,9 +266,11 @@ div.video-wrapped {
 		margin-top: 0;
 		max-height: 300px;
 		display: block;
-		width: 100%;
+		max-width: 100%;
 		background-color: rgba(30, 30, 30, 0.88);
-		max-width: calc(300px * 1.7766);
+		width: calc(300px * 1.7766);
+		width:533px;
+
 		margin: 0 auto;
 	}
 

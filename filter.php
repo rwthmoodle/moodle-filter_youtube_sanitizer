@@ -63,7 +63,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             if(preg_match("=youtube.*embed/=i", $src)) {
 				$src .= '&autoplay=1&controls=1';
                 $newNode =    $this->video_embed_privacy_translate($node, $src);
-                $node->parentNode->replaceChild($newNode, $node);
+                $node->parentNode->replaceChild($newNode, $node) ;
             }
         }
         //Return the changed HTML string
@@ -123,5 +123,12 @@ EOT;
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
     }
+
+	public function filter_youtube_sanitizer_before_standadrd_html_head() {
+		$css = '<style>.video-wrapped,span.mediaplugin{height:calc((50% - 5px) * 0.5625)!important;';
+		$css .=	'width:calc(50% - 5px)!important;}</style>';
+		return $css;
+
+	}
 
 }
