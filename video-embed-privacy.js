@@ -17,11 +17,11 @@ require(['jquery'], function($) {
 		}
 		function preventBubbling() {
 			$('.yt-link-wrapper a, yt-link-wrapper span').each(function(index) {
-				console.log(index, ':  ', $(this));
-				console.log($(this));
+				// console.log(index, ':  ', $(this));
+				// console.log($(this));
 				$(this).on('click mousedown', function(event) {
 					event.stopPropagation();
-					console.log($(event));
+					// console.log($(event));
 				});
 			});
 		}
