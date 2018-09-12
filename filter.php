@@ -125,11 +125,4 @@ EOT;
         return $newdiv;
     }
 
-	public function filter_youtube_sanitizer_before_standadrd_html_head() {
-		$css = '<style>.video-wrapped,span.mediaplugin{height:calc((50% - 5px) * 0.5625)!important;';
-		$css .=	'width:calc(50% - 5px)!important;}</style>';
-		return $css;
-
-	}
-
 }
