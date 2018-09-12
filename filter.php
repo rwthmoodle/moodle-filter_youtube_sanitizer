@@ -68,8 +68,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             }
         }
         //Return the changed HTML string
-		$returndom = $dom-> saveHTML($dom);
-        return $dom->saveHTML($dom);
+        return $dom->saveHTML();
     }
 
 	/**
