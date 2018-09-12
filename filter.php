@@ -51,9 +51,10 @@ class filter_youtube_sanitizer extends moodle_text_filter {
     public function filter($text, array $options = array()) {
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
-        $dom->loadHTML($text);
+        @$dom->loadHTML($text);
         // Get all the Iframe Elements from the DOMDocument.
-        foreach ($dom->getElementsByTagName('iframe') as $node) {
+        $nodes = $dom->getElementsByTagName('iframe');
+        foreach ($nodes as $node) {
             // Get the Attributes of the node.
             $src = $node->getAttribute('src');
             $href = $node->getAttribute('href');
