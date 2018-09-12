@@ -28,6 +28,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use filter_youtube_sanitizer\domnodelist_reverse_iterator;
+
 /**
  * Filter Youtube Sanitizer.
  *
@@ -54,7 +56,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         @$dom->loadHTML($text);
         // Get all the Iframe Elements from the DOMDocument.
         $nodes = $dom->getElementsByTagName('iframe');
-        foreach ($nodes as $node) {
+        foreach (new domnodelist_reverse_iterator($nodes) as $node) {
             // Get the Attributes of the node.
             $src = $node->getAttribute('src');
             $href = $node->getAttribute('href');
