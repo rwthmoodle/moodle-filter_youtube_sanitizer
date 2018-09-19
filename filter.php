@@ -51,6 +51,9 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 	* @return  object DOMDoc object
 	*/
     public function filter($text, array $options = array()) {
+        // Temporarily convert to ISO-8859-1 to make DOM classes handle non-ASCII characters.
+        $text = mb_convert_encoding($text, 'ISO-8859-1', 'UTF-8');
+
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
         @$dom->loadHTML($text);
@@ -70,7 +73,9 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             }
         }
         //Return the changed HTML string
-        return $dom->saveHTML();
+        $text = $dom->saveHTML();
+        $text = mb_convert_encoding($text, 'UTF-8', 'ISO-8859-1');
+        return $text;
     }
 
 	/**
