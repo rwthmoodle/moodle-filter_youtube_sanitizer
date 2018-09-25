@@ -90,8 +90,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 
         global $PAGE, $CFG;
         // Reqiure the nescassary JS-file that handles everything associated with clicks and touches.
-        $PAGE->requires->js(new moodle_url($CFG->wwwroot . '/filter/youtube_sanitizer/video-embed-privacy.js'));
-        $PAGE->requires->js_call_amd("filter_youtube_sanitizer/video-embed-privacy", "init");
+		$PAGE->requires->js_call_amd("filter_youtube_sanitizer/video-embed-privacy", "init");
 		$src = $node->getAttribute('src');
         $width = $node->getAttribute('width');
         $height = $node->getAttribute('height');

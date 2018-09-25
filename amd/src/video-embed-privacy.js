@@ -1,9 +1,10 @@
-require(['jquery'], function($) {
+define(['jquery'], function($) {
+    "use strict";
 	return {
 		init: function() {
-		
-			$(function() {
-				function applyVideoWrapper() {
+			
+			// $(function() {
+				var applyVideoWrapper = function() {
 					$(".video-wrapped").each(function(obj) {
 						$(this).empty().append($('<div class="video-wrapped-play">').html($(this).attr('data-embed-play')));
 						$(this).on('click mousedown', function() {
@@ -18,7 +19,7 @@ require(['jquery'], function($) {
 					});
 					preventBubbling();
 				}
-				function preventBubbling() {
+				var preventBubbling = function() {
 					$('.yt-link-wrapper a, yt-link-wrapper span').each(function(index) {
 						// console.log(index, ':  ', $(this));
 						// console.log($(this));
@@ -29,7 +30,7 @@ require(['jquery'], function($) {
 					});
 				}
 				applyVideoWrapper();
-			});
+			// });
 		}	
 	
 	}
