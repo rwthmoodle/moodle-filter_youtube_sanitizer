@@ -28,6 +28,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use filter_youtube_sanitizer\domnodelist_reverse_iterator;
+
 /**
  * Filter Youtube Sanitizer.
  *
@@ -49,11 +51,15 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 	* @return  object DOMDoc object
 	*/
     public function filter($text, array $options = array()) {
+        // Temporarily convert to ISO-8859-1 to make DOM classes handle non-ASCII characters.
+        $text = mb_convert_encoding($text, 'ISO-8859-1', 'UTF-8');
+
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
-        $dom->loadHTML($text);
+        @$dom->loadHTML($text);
         // Get all the Iframe Elements from the DOMDocument.
-        foreach ($dom->getElementsByTagName('iframe') as $node) {
+        $nodes = $dom->getElementsByTagName('iframe');
+        foreach (new domnodelist_reverse_iterator($nodes) as $node) {
             // Get the Attributes of the node.
             $src = $node->getAttribute('src');
             $href = $node->getAttribute('href');
@@ -67,8 +73,9 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             }
         }
         //Return the changed HTML string
-		$returndom = $dom-> saveHTML($dom);
-        return $dom->saveHTML($dom);
+        $text = $dom->saveHTML();
+        $text = mb_convert_encoding($text, 'UTF-8', 'ISO-8859-1');
+        return $text;
     }
 
 	/**
@@ -123,12 +130,5 @@ EOT;
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
     }
-
-	public function filter_youtube_sanitizer_before_standadrd_html_head() {
-		$css = '<style>.video-wrapped,span.mediaplugin{height:calc((50% - 5px) * 0.5625)!important;';
-		$css .=	'width:calc(50% - 5px)!important;}</style>';
-		return $css;
-
-	}
 
 }

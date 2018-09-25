@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018061501;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2018091900;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2017110800;        // Requires this Moodle version.
 $plugin->component = 'filter_youtube_sanitizer';     // Full name of the plugin (used for diagnostics).
-$plugin->release = '1.0.0';
+$plugin->release   = '1.0.2';
