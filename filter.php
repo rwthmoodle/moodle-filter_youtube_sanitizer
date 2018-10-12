@@ -50,10 +50,17 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 	* @param array $options array of window sizes for the video
 	* @return  object DOMDoc object
 	*/
+	
     public function filter($text, array $options = array()) {
-        // Temporarily convert to ISO-8859-1 to make DOM classes handle non-ASCII characters.
+        // Return the Filter content directly if it doesnt contain any <iframe>
+
+		// Temporarily convert to ISO-8859-1 to make DOM classes handle non-ASCII characters.
         $text = mb_convert_encoding($text, 'ISO-8859-1', 'UTF-8');
 
+		if (stripos($text, '</iframe>') === false) {
+			// Performance shortcut - if there are no </video> tags, nothing can match.
+			return $text;
+		}
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
         @$dom->loadHTML($text);
