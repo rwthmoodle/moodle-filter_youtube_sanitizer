@@ -60,7 +60,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 		}
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
-        @$dom->loadHTML('<?xml encoding="utf-8" ?>'. $text);
+        $dom->loadHTML('<?xml encoding="utf-8" ?>'. $text);
         // Get all the Iframe Elements from the DOMDocument.
         $nodes = $dom->getElementsByTagName('iframe');
         foreach (new domnodelist_reverse_iterator($nodes) as $node) {
@@ -73,6 +73,15 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             if(preg_match("=youtube.*embed/=i", $src)) {
 				$src .= '&autoplay=1&controls=1';
                 $newNode =    $this->video_embed_privacy_translate($node, $src);
+
+                // If video tag was inside a YouTube-Player (i.e. a parent tag with the
+                // class "mediaplugin_youtube"), replace outer tag instead of just the
+                // inner iframe tag.
+                $parent = $node->parentNode;
+                if ($parent && $parent->hasAttribute('class') && strpos($parent->getAttribute('class'), 'mediaplugin_youtube') !== false) {
+                    $node = $parent;
+                }
+
                 $node->parentNode->replaceChild($newNode, $node) ;
             }
         }
