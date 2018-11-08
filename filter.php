@@ -50,7 +50,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 	* @param array $options array of window sizes for the video
 	* @return  object DOMDoc object
 	*/
-
+	private static $jsAdded = false;
     public function filter($text, array $options = array()) {
         // Return the Filter content directly if it doesnt contain any <iframe>
 
@@ -68,9 +68,11 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             $src = $node->getAttribute('src');
             $href = $node->getAttribute('href');
             $parent = $node->parentNode;
-
+// echo '<pre>';var_dump(preg_match("=youtube.*embed/videoseries?/\i",$src));echo '</pre>';
             // Get the right part of the node and replace it
+            // Example URL for video series: https://www.youtube.com/embed/videoseries?list=SPwHMzH35WbRIBdLm5yYzi1LvayrqoGQo1
             if(preg_match("=youtube.*embed/=i", $src)) {
+
 				$src .= '&autoplay=1&controls=1';
                 $newNode =    $this->video_embed_privacy_translate($node, $src);
 
@@ -82,6 +84,18 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                     $node = $parent;
                 }
 
+                $node->parentNode->replaceChild($newNode, $node) ;
+            } else if (preg_match("=youtube.*embed/videoseries?/\i", $src)) {
+                $src .= '&autoplay=1&controls=1';
+                $newNode =    $this->video_embed_privacy_translate($node, $src);
+
+                // If video tag was inside a YouTube-Player (i.e. a parent tag with the
+                // class "mediaplugin_youtube"), replace outer tag instead of just the
+                // inner iframe tag.
+                $parent = $node->parentNode;
+                if ($parent && $parent->hasAttribute('class') && strpos($parent->getAttribute('class'), 'mediaplugin_youtube') !== false) {
+                    $node = $parent;
+                }
                 $node->parentNode->replaceChild($newNode, $node) ;
             }
         }
@@ -103,7 +117,10 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 
         global $PAGE, $CFG;
         // Reqiure the nescassary JS-file that handles everything associated with clicks and touches.
-		$PAGE->requires->js_call_amd("filter_youtube_sanitizer/video-embed-privacy", "init");
+		if (!self::$jsAdded ) {
+			$PAGE->requires->js_call_amd("filter_youtube_sanitizer/video-embed-privacy", "init");
+			self::$jsAdded = true;
+		}
 		$src = $node->getAttribute('src');
         $width = $node->getAttribute('width');
         $height = $node->getAttribute('height');
