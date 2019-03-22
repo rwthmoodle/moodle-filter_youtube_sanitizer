@@ -125,7 +125,8 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $width = $node->getAttribute('width');
         $height = $node->getAttribute('height');
 		$node->setAttribute('height', 300);
-		$width = 300*1.7777;
+        // $width = 300*1.7777;
+        $width = "100%";        
 		$node->setAttribute('width', $width);
 		// Adding the Play Button.
         $button = <<<EOT
@@ -151,7 +152,7 @@ EOT;
         $playtext = '<div class="overlay">' . $button . '</div>';
 		$playtext .= '<div class="yt-link-wrapper"><span class="small"> ' . $terms . '</span>';
         $playtext .= '<a class="small" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
-     //   	$preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?");
+        // $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/video-embed-privacy/preview/preview.php?");
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
