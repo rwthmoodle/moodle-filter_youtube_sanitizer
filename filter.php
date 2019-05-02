@@ -68,6 +68,8 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             $src = $node->getAttribute('src');
             $href = $node->getAttribute('href');
             $parent = $node->parentNode;
+            $oembedsrc = 'http://www.youtube.com/oembed?url=' . $src . '&format=json';
+            $ytjson = json_decode(file_get_contents($oembedsrc), true);
 // echo '<pre>';var_dump(preg_match("=youtube.*embed/videoseries?/\i",$src));echo '</pre>';
             // Get the right part of the node and replace it
             // Example URL for video series: https://www.youtube.com/embed/videoseries?list=SPwHMzH35WbRIBdLm5yYzi1LvayrqoGQo1
@@ -124,10 +126,10 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 		$src = $node->getAttribute('src');
         $width = $node->getAttribute('width');
         $height = $node->getAttribute('height');
-		$node->setAttribute('height', 300);
+		// $node->setAttribute('height', 300);
         // $width = 300*1.7777;
-        $width = "100%";        
-		$node->setAttribute('width', $width);
+        // $width = "100%";        
+		// $node->setAttribute('width', $width);
 		// Adding the Play Button.
         $button = <<<EOT
             <svg class="privacy-play-btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
