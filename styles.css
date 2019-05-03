@@ -4,7 +4,7 @@ html body div.center.box.generalbox {
 }
 html body div.course-content div.no-overflow,
 html body div.center.box.generalbox div.no-overflow {
-overflow: hidden;	
+overflow: hidden;
 }
 .mediaplugin_youtube {
 	margin-top: 0;
@@ -98,7 +98,6 @@ height: auto;
 text-align: center;
 margin-top: 0;
 margin-bottom: 5px;
-vertical-align: top;
 background-size: contain;
 }
 .mediaplugin.mediaplugin_youtube {
@@ -131,7 +130,7 @@ background-color: rgba(30, 30, 30);
 	padding-right: 0;
 }
 div.no-overflow svg.privacy-play-btn {
-	/* height: calc(300px - 30px); */
+	height: calc(300px - 30px);
 }
 div.no-overflow svg.privacy-play-btn div.small {
 	position: absolute;
@@ -170,7 +169,6 @@ html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin
 	/* height: 300px; */
 	/* width: 400px; */
 	text-align: center;
-	vertical-align: top;
 	margin: 0 auto;
 	background-size: cover;
 }

@@ -32,18 +32,29 @@ require_once($CFG->dirroot.'/lib/filelib.php');
 
 $videoid = optional_param('vid', null, PARAM_TEXT);
 $listid = optional_param('lid', null, PARAM_TEXT);
+// Prepare Cache for the thumbnails
+$cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
 
-$c = new curl();
-$file = fopen('savepath', 'w');
-$result = $c->download_one("https://img.youtube.com/vi/$videoid/0.jpg", null,
-  array('file' => $file, 'timeout' => 5, 'followlocation' => true, 'maxredirs' => 3));
-fclose($file);
-$download_info = $c->get_info();
-if ($result === true) {
-  // file downloaded successfully
+// Check if there is any stored value in the cache 
+if ($cache->get($videoid) === $videoid) {
+  $result = $cache->get($videoid);
 } else {
-  $error_text = $result;
-  $error_code = $c->get_errno();
-}
-
+  $c = new curl();
+  $file = fopen('savepath', 'w');
+  $result = $c->download_one("https://img.youtube.com/vi/$videoid/0.jpg", null,
+  array('file' => $file, 'timeout' => 5, 'followlocation' => true, 'maxredirs' => 3));
+  fclose($file);
+  $download_info = $c->get_info();
+  if ($result === true) {
+    // file downloaded successfully
+    // Caching the thumbnail in the Applicationcache 
+    $result = $cache->set($videoid, $file);
+  } else {
+    $error_text = $result;
+    $error_code = $c->get_errno();
+  }
+};
+$img = $cache->get($videoid);
+// echo($img);
+// readfile($cache->get($videoid));
 readfile('savepath');

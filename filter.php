@@ -61,8 +61,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             // Performance shortcut - if there are no </video> tags, nothing can match.
             return $text;
         }
-        // Prepare Cache for the thumbnails
-        $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
+       
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
         $dom->loadHTML('<?xml encoding="utf-8" ?>'. $text);
@@ -78,18 +77,17 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                 continue;
             }
             // Get the Video Information by sending requests with the oembed parameter
-            $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
+            // $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
+            $yturl = 'http://youtube.com/oembed?url=' . $url . '&format=json';
             $oembed = file_get_contents($yturl);
             $videoinfo = json_decode($oembed, true);
             // Get the tumbnail from the Videoinformation
             $thumbnail =  file_get_contents($videoinfo[thumbnail_url]);
-            // Caching the thumbnail in the Applicationcache 
-            $result = $cache->set($videoid, $thumbnail);
+            
             // Get the right part of the node and replace it
             // Example URL for video series: https://www.youtube.com/embed/videoseries?list=SPwHMzH35WbRIBdLm5yYzi1LvayrqoGQo1
             $url->param('autoplay', '1');
             $url->param('controls', '1');
-            $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
             
             $newNode = $this->video_embed_privacy_translate($node, $src, $videoid, $listid);
             
@@ -134,7 +132,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                 break;
             case 'www.youtube.com':
             case 'www.youtube-nocookies.com':
-                if ($path == '/embed/videoseries)') {
+                if ($path == '/embed/videoseries') {
                     $listid = $url->get_param('list');
                 } else if ($path == '/watch)') {
                     $videoid = $url->get_param('v');
@@ -164,14 +162,19 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             self::$jsAdded = true;
         }
         $node->setAttribute('src', $url);
-       
+        $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json';
         $oembed = file_get_contents($yturl);
         $videoinfo = json_decode($oembed, true);
+        $thumbratio = $videoinfo[thumbnail_width] / $videoinfo[thumbnail_height];
+        $videoratio = $videoinfo[width] / $videoinfo[height];
+        $height =  $videoinfo[height];
         // $width = $node->getAttribute('width');
-        // $height = $node->getAttribute('height');
         $node->setAttribute('height', $videoinfo[height]);
-        // $width = 300 * 1.7777;
-        $node->setAttribute('width', $videoinfo[width]);
+        $thumbwidth = intval($videoinfo[thumbnail_height] * $thumbratio);
+        $videowidth = intval($videoinfo[height] * $videoratio);
+        $videowidthstring = $videowidth . 'px';
+        $videoheightstring = $height . 'px';
+        $node->setAttribute('width', $videowidth);
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
         // Adding the Play Button.
@@ -195,7 +198,7 @@ EOT;
         $nojstext = get_string('no-js-message', 'filter_youtube_sanitizer');
         $terms = get_string('terms', 'filter_youtube_sanitizer');
         $cond = get_string('conditions', 'filter_youtube_sanitizer');
-        $playtext = '<div class="overlay">' . $button . '</div>';
+        $playtext = '<div height="' . $videoinfo[height] . '" width="' . $videowidth . '" class="overlay">' . $button . '</div>';
         $playtext .= '<div class="yt-link-wrapper"><span class="small"> ' . $terms . '</span>';
         $playtext .= '<a class="small" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
         
@@ -212,11 +215,14 @@ EOT;
 
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
+        // $newdiv->setAttribute('width', $videowidth);
+        // $newdiv->setAttribute('height', $height);
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $newdiv->setAttribute('style', "background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: contian;");
+        $newdiv->setAttribute('style', "width:$videowidthstring;height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
         $newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
     }
+
 
 }
