@@ -78,7 +78,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             }
             // Get the Video Information by sending requests with the oembed parameter
             // $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
-            $yturl = 'http://youtube.com/oembed?url=' . $url . '&format=json';
+            $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
             $oembed = file_get_contents($yturl);
             $videoinfo = json_decode($oembed, true);
             // Get the tumbnail from the Videoinformation
@@ -201,9 +201,9 @@ EOT;
         $playtext = '<div height="' . $videoinfo[height] . '" width="' . $videowidth . '" class="overlay">' . $button . '</div>';
         $playtext .= '<div class="yt-link-wrapper"><span class="small"> ' . $terms . '</span>';
         $playtext .= '<a class="small" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
+
         
-
-
+        
         $previewparams = [];
         if (!is_null($videoid)) {
             $previewparams['vid'] = $videoid;
@@ -211,17 +211,63 @@ EOT;
         if (!is_null($listid)) {
             $previewparams['lid'] = $listid;
         }
-        $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/preview.php", $previewparams);
-
+        // $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/preview.php", $previewparams);
+        $preview = self::get_preview($videoid, $videoinfo);
+        $preview = "data:image/jepg;base64," .  $preview;
+        $newimg = $node->ownerDocument->createElement('img');
+        $newimg->setAttribute('src', $preview);
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
-        // $newdiv->setAttribute('width', $videowidth);
-        // $newdiv->setAttribute('height', $height);
+        $newdiv->appendChild($newimg);
+
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
         $newdiv->setAttribute('style', "width:$videowidthstring;height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
         $newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
+    }
+
+    public function get_preview($videoid, $videoinfo) {
+
+        global $PAGE, $CFG;
+
+        // $videoid = optional_param('vid', null, PARAM_TEXT);
+        // $listid = optional_$yturlparam('lid', null, PARAM_TEXT);
+
+        // Prepare Cache for the thumbnails
+        $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
+
+        // Check if there is any stored value in the cache 
+        if ($cache->get($videoid) === $image) {
+            $result = $cache->get($videoid);
+        } else {
+
+            $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
+            $image =  base64_encode($image);
+            header('Content-Type: image/jpeg');
+            // $resource = imagecreatefromstring($image);
+            // $c = new curl();
+            // $file = fopen('savepath', 'w');
+            // $jpeg = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
+            // $result = $c->download_one("https://img.youtube.com/vi/$videoid/0.jpg", null,
+            // array('file' => $file, 'timeout' => 5, 'followlocation' => true, 'maxredirs' => 3));
+            // fclose($file);
+            // $download_info = $c->get_info();
+            
+            if (isset($image) === true) {
+                // file downloaded successfully
+                // Caching the thumbnail in the Applicationcache 
+                $cache->set($videoid, $image);
+            } else {
+                $error_text = $result;
+                // $error_code = $c->get_errno();
+            }
+        };
+           // $c = new curl();
+        // imagejpeg($resource);
+        return $image;
+        // echo($img);
+        // readfile('savepath');
     }
 
 

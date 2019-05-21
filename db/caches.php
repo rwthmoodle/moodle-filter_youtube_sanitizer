@@ -28,8 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 $definitions = array(
     'filter_youtube_sanitizer' => array(
         'mode' => cache_store::MODE_APPLICATION,
-        'simplekeys' => true,
+        'simplekeys' => false,
         'requirelockingwrite' => true,
+        // 'ttl' => 01
         'ttl' => 10 * 60
     )
 );
