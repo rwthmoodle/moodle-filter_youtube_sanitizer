@@ -70,9 +70,7 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped svg.privac
 }
 
 div.center.box.generalbox div.no-overflow div.video-wrapped,
-div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped,
-div.center.box.generalbox div.no-overflow iframe,
-div.center.box.generalbox div.no-overflow div.no-overflow iframe {
+div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped {
   background-color: #1e1e1e;
   width: calc(300px * 1.7766);
   width:533px;
