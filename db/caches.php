@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $definitions = array(
-    'filter_youtube_sanitizer' => array(
+    'youtubethumbnails' => array(
         'mode' => cache_store::MODE_APPLICATION,
         'simplekeys' => false,
         'requirelockingwrite' => true,
