@@ -156,7 +156,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         /** Setting up the video Wrapper */
         $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
         $node->setAttribute('src', $url);
-        $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json';
+        $yturl = 'https://youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json';
         $oembed = file_get_contents($yturl);
         $videoinfo = json_decode($oembed, true);
         $thumbratio = $videoinfo[thumbnail_width] / $videoinfo[thumbnail_height];
