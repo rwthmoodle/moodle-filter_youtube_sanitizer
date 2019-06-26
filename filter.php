@@ -90,15 +90,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             $url->param('controls', '1');
             
             $newNode = $this->video_embed_privacy_translate($node, $src, $videoid, $listid);
-            
-            // $videoinfo[thumbnail_width] = '100%';
-            // $videoinfo[thumbnail_height] = 'auto';
-            // $videoinfo[width] = '100%';
-            // $videoinfo[height] = 'auto';
-            // $videoinfo[html] = '<iframe width="' . $videoinfo[width] . '" height="' . $videoinfo[height] . '" src="' . $src . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-            // If video tag was inside a YouTube-Player (i.e. a parent tag with the
-            // class "mediaplugin_youtube"), replace outer tag instead of just the
-            // inner iframe tag.
+           
             $parent = $node->parentNode;
             if ($parent && $parent->hasAttribute('class') && strpos($parent->getAttribute('class'), 'mediaplugin_youtube') !== false) {
                 $node = $parent;
@@ -161,6 +153,8 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             $PAGE->requires->js_call_amd("filter_youtube_sanitizer/video-embed-privacy", "init");
             self::$jsAdded = true;
         }
+        /** Setting up the video Wrapper */
+        $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
         $node->setAttribute('src', $url);
         $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json';
         $oembed = file_get_contents($yturl);
@@ -168,7 +162,6 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $thumbratio = $videoinfo[thumbnail_width] / $videoinfo[thumbnail_height];
         $videoratio = $videoinfo[width] / $videoinfo[height];
         $height =  $videoinfo[height];
-        // $width = $node->getAttribute('width');
         $node->setAttribute('height', $videoinfo[height]);
         $thumbwidth = intval($videoinfo[thumbnail_height] * $thumbratio);
         $videowidth = intval($videoinfo[height] * $videoratio);
@@ -203,23 +196,25 @@ EOT;
         $playtext .= '<a class="small" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
 
         
-        
+        /* Preparing to recieve JSON with info about video and preview picture fom youtu.be */
         $previewparams = [];
+        /** differenciating between lists and videos for getting the right id */
         if (!is_null($videoid)) {
             $previewparams['vid'] = $videoid;
         }
         if (!is_null($listid)) {
             $previewparams['lid'] = $listid;
         }
-        // $preview = new moodle_url($CFG->wwwroot . "/filter/youtube_sanitizer/preview.php", $previewparams);
-        $preview = self::get_preview($videoid, $videoinfo);
+        /** Generating the preview picture wrapper  */
+        $preview = self::get_preview($videoid, $videoinfo, $cache);
+        /** Mamually adding header and building img raw Data for parsing into the img tags source */
         $preview = "data:image/jepg;base64," .  $preview;
         $newimg = $node->ownerDocument->createElement('img');
         $newimg->setAttribute('src', $preview);
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
         $newdiv->appendChild($newimg);
-
+        /** Getting the video size from JSON and passing the values to the img tag */
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
         $newdiv->setAttribute('style', "width:$videowidthstring;height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
         $newdiv->setAttribute('data-embed-play', $playtext);
@@ -227,47 +222,52 @@ EOT;
         return $newdiv;
     }
 
-    public function get_preview($videoid, $videoinfo) {
+
+    public function get_preview($videoid, $videoinfo, $cache) {
 
         global $PAGE, $CFG;
-
-        // $videoid = optional_param('vid', null, PARAM_TEXT);
-        // $listid = optional_$yturlparam('lid', null, PARAM_TEXT);
-
         // Prepare Cache for the thumbnails
-        $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
-
-        // Check if there is any stored value in the cache 
-        if ($cache->get($videoid) === $image) {
-            $result = $cache->get($videoid);
-        } else {
-
+        if (!isset($cache)) {
+            // $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
             $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
+
+        } 
+        
+        // Check if there is any stored VideoID in the cache to generate URL for the image
+        if ($cache->get($videoid) !== null/**$image */) {
+            $result = $cache->get($videoid);
+            $image = $result; 
+        } 
+
+        $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
+        if ($image == false) {
+            // Make Image of the size of the wrapper for creating placholder image for missing files
+            $placeholder = imageCreateTrueColor($videoinfo[height] , $videoinfo[width] );
+            $bg = imageColorAllocate($placeholder, 100, 100, 100);
+            imagefilledrectangle($placeholder, 0, 0, $videoinfo[height], $videoinfo[width], $bg);
+            $image = $placeholder;
+            $tmp = tempnam( sys_get_temp_dir(), 'img' );
+            header('Content-Type: image/jpeg');
+            imagepng($placeholder, $tmp);
+            imagedestroy($image);
+            $image = base64_encode(file_get_contents($tmp));
+            @unlink($tmp);
+        } else {
             $image =  base64_encode($image);
             header('Content-Type: image/jpeg');
-            // $resource = imagecreatefromstring($image);
-            // $c = new curl();
-            // $file = fopen('savepath', 'w');
-            // $jpeg = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
-            // $result = $c->download_one("https://img.youtube.com/vi/$videoid/0.jpg", null,
-            // array('file' => $file, 'timeout' => 5, 'followlocation' => true, 'maxredirs' => 3));
-            // fclose($file);
-            // $download_info = $c->get_info();
-            
-            if (isset($image) === true) {
-                // file downloaded successfully
-                // Caching the thumbnail in the Applicationcache 
-                $cache->set($videoid, $image);
-            } else {
-                $error_text = $result;
-                // $error_code = $c->get_errno();
-            }
-        };
-           // $c = new curl();
-        // imagejpeg($resource);
+
+        }
+        
+        if (isset($image)) {
+            // if file downloaded successfully -> Caching the thumbnail in the Applicationcache 
+            $cache->set($videoid, $image);
+        } else {
+            $error_text = $result;
+        }
+    
+    
         return $image;
-        // echo($img);
-        // readfile('savepath');
+    
     }
 
 
