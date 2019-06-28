@@ -98,8 +98,7 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 	display: block;
 	height: auto;
 	text-align: center;
-	margin-top: 0;
-	margin-bottom: 5px;
+	margin: 0 auto;
 	background-size: contain;
 }
 .mediaplugin.mediaplugin_youtube {
