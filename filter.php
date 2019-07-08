@@ -167,7 +167,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $videowidth = intval($videoinfo[height] * $videoratio);
         $videowidthstring = $videowidth . 'px';
         $videoheightstring = $height . 'px';
-        $node->setAttribute('width', '100%');
+        $node->setAttribute('style', "width:100%;max-width:$videowidthstring");
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
         // Adding the Play Button.
