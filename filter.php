@@ -167,7 +167,8 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $videowidth = intval($videoinfo[height] * $videoratio);
         $videowidthstring = $videowidth . 'px';
         $videoheightstring = $height . 'px';
-        $node->setAttribute('width', $videowidth);
+        // $node->setAttribute('width', $videowidth);
+        $node->setAttribute('width', '100%');
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
         // Adding the Play Button.
@@ -191,7 +192,8 @@ EOT;
         $nojstext = get_string('no-js-message', 'filter_youtube_sanitizer');
         $terms = get_string('terms', 'filter_youtube_sanitizer');
         $cond = get_string('conditions', 'filter_youtube_sanitizer');
-        $playtext = '<div height="' . $videoinfo[height] . '" width="' . $videowidth . '" class="overlay">' . $button . '</div>';
+        // $playtext = '<div height="' . $videoinfo[height] . '" width="' . $videowidth . '" class="overlay">' . $button . '</div>';
+        $playtext = '<div height="100%" width="100%" class="overlay">' . $button . '</div>';
         $playtext .= '<div class="yt-link-wrapper"><span class="small-yt-link"> ' . $terms . '</span>';
         $playtext .= '<a class="small-yt-link" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
 
@@ -216,7 +218,7 @@ EOT;
         $newdiv->appendChild($newimg);
         /** Getting the video size from JSON and passing the values to the img tag */
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $newdiv->setAttribute('style', "width:100%;max-width:$videowidthstring;max-height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
+        $newdiv->setAttribute('style', "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
         $newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
