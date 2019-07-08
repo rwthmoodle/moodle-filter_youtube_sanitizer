@@ -167,7 +167,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $videowidth = intval($videoinfo[height] * $videoratio);
         $videowidthstring = $videowidth . 'px';
         $videoheightstring = $height . 'px';
-        $node->setAttribute('style', "width:100%;max-width:$videowidthstring;min-width:50%;");
+        $node->setAttribute('style', "width:100%;max-width:$videowidthstring;min-width:300px;");
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
         // Adding the Play Button.
@@ -216,7 +216,7 @@ EOT;
         $newdiv->appendChild($newimg);
         /** Getting the video size from JSON and passing the values to the img tag */
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $newdiv->setAttribute('style', "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
+        $newdiv->setAttribute('style', "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;min-width:270px;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
         $newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
