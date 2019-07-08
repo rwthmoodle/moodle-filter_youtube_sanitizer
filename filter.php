@@ -192,8 +192,8 @@ EOT;
         $terms = get_string('terms', 'filter_youtube_sanitizer');
         $cond = get_string('conditions', 'filter_youtube_sanitizer');
         $playtext = '<div height="' . $videoinfo[height] . '" width="' . $videowidth . '" class="overlay">' . $button . '</div>';
-        $playtext .= '<div class="yt-link-wrapper"><span class="small"> ' . $terms . '</span>';
-        $playtext .= '<a class="small" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
+        $playtext .= '<div class="yt-link-wrapper"><span class="small-yt-link"> ' . $terms . '</span>';
+        $playtext .= '<a class="small-yt-link" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
 
         
         /* Preparing to recieve JSON with info about video and preview picture fom youtu.be */
@@ -216,7 +216,7 @@ EOT;
         $newdiv->appendChild($newimg);
         /** Getting the video size from JSON and passing the values to the img tag */
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $newdiv->setAttribute('style', "width:$videowidthstring;height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
+        $newdiv->setAttribute('style', "width:100%;max-width:$videowidthstring;max-height:$videoheightstring;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
         $newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
@@ -242,9 +242,9 @@ EOT;
         $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
         if ($image == false) {
             // Make Image of the size of the wrapper for creating placholder image for missing files
-            $placeholder = imageCreateTrueColor($videoinfo[height] , $videoinfo[width] );
+            $placeholder = imageCreateTrueColor($videoinfo[width] , $videoinfo[height] );
             $bg = imageColorAllocate($placeholder, 100, 100, 100);
-            imagefilledrectangle($placeholder, 0, 0, $videoinfo[height], $videoinfo[width], $bg);
+            imagefilledrectangle($placeholder, 0, 0, $videoinfo[width], $videoinfo[height], $bg);
             $image = $placeholder;
             $tmp = tempnam( sys_get_temp_dir(), 'img' );
             header('Content-Type: image/jpeg');

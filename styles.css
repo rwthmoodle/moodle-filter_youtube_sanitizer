@@ -5,8 +5,10 @@ html body div.center.box.generalbox {
 html body div.course-content div.no-overflow,
 html body div.center.box.generalbox div.no-overflow {
 	overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+	flex-grow: 2;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
 }
 .mediaplugin_youtube {
 	margin-top: 0;
@@ -21,12 +23,12 @@ html body div.center.box.generalbox div.no-overflow {
 	left: 0;
 	right: 0;
 	margin: 0 auto;
-	max-width: 380px;
+	padding: 5px 20px;
 	background: rgba(30,30,30,0.88);
 }
 .yt-link-wrapper > a {
 	color: #8ebae5;
-	font-size: 80%;
+	/* font-size: 80%; */
 	text-align: center;
 }
 .yt-link-wrapper > a:hover {
@@ -35,8 +37,9 @@ html body div.center.box.generalbox div.no-overflow {
 .contentwithoutlink {
 	padding-right: 0;
 }
-.yt-link-wrapper > a + span {
+.yt-link-wrapper > span + a {
 	text-align: center;
+	font-size: 90%;
 }
 html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
 	position: relative;
@@ -150,37 +153,37 @@ fieldset#id_page_video-display-options {
 }
 
 @media only screen and (max-width: 1024px) {
-html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
-html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
-	background-color: #1e1e1e;
-	position: relative;
-	display: block;
-	height: auto;
-	max-width: 100%;
-	height: auto;
-	/* width: 480px; */
-	/* /* width: calc(300px * 1.7766); */
-	/* width:533px;  */
-}
-.video-wrapped {
-	/* background-color: rgba(30, 30, 30, 0.88); */
-	position: relative;
-	display: block;
-	max-width: 100%;
-	/* height: 300px; */
-	/* width: 400px; */
-	text-align: center;
-	margin: 0 auto;
-	background-size: cover;
-}
-.mediaplugin.mediaplugin_youtube {
-	margin-top: 0;
-	/* max-height: 300px; */
-	display: block;
-	max-width: 100%;
-	background-color: rgba(30, 30, 30, 0.88);
-	height: auto;
-	/* width: 480px; */
-	margin: 0 auto;
-}
+	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
+	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
+		background-color: #1e1e1e;
+		position: relative;
+		display: block;
+		height: auto;
+		max-width: 100%;
+		height: auto;
+		/* width: 480px; */
+		/* /* width: calc(300px * 1.7766); */
+		/* width:533px;  */
+	}
+	.video-wrapped {
+		/* background-color: rgba(30, 30, 30, 0.88); */
+		position: relative;
+		display: block;
+		max-width: 100%;
+		/* height: 300px; */
+		/* width: 400px; */
+		text-align: center;
+		margin: 0 auto;
+		background-size: cover;
+	}
+	.mediaplugin.mediaplugin_youtube {
+		margin-top: 0;
+		/* max-height: 300px; */
+		display: block;
+		max-width: 100%;
+		background-color: rgba(30, 30, 30, 0.88);
+		height: auto;
+		/* width: 480px; */
+		margin: 0 auto;
+	}
 }
