@@ -167,7 +167,6 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $videowidth = intval($videoinfo[height] * $videoratio);
         $videowidthstring = $videowidth . 'px';
         $videoheightstring = $height . 'px';
-        // $node->setAttribute('width', $videowidth);
         $node->setAttribute('width', '100%');
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
@@ -192,7 +191,6 @@ EOT;
         $nojstext = get_string('no-js-message', 'filter_youtube_sanitizer');
         $terms = get_string('terms', 'filter_youtube_sanitizer');
         $cond = get_string('conditions', 'filter_youtube_sanitizer');
-        // $playtext = '<div height="' . $videoinfo[height] . '" width="' . $videowidth . '" class="overlay">' . $button . '</div>';
         $playtext = '<div height="100%" width="100%" class="overlay">' . $button . '</div>';
         $playtext .= '<div class="yt-link-wrapper"><span class="small-yt-link"> ' . $terms . '</span>';
         $playtext .= '<a class="small-yt-link" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
@@ -230,7 +228,6 @@ EOT;
         global $PAGE, $CFG;
         // Prepare Cache for the thumbnails
         if (!isset($cache)) {
-            // $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
             $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
 
         } 
