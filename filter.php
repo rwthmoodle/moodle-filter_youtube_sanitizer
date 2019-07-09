@@ -156,7 +156,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         /** Setting up the video Wrapper */
         $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
         $node->setAttribute('src', $url);
-        $yturl = 'https://youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json';
+        $yturl = 'https://youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json&autoplay=1';
         $oembed = file_get_contents($yturl);
         $videoinfo = json_decode($oembed, true);
         $thumbratio = $videoinfo[thumbnail_width] / $videoinfo[thumbnail_height];
@@ -170,6 +170,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $node->setAttribute('style', "width:100%;max-width:$videowidthstring;min-width:300px;");
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
+        $node->setAttribute('allowautoplay', '1');
         // Adding the Play Button.
         $button = <<<EOT
             <svg class="privacy-play-btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

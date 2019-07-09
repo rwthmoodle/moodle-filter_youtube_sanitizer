@@ -5,14 +5,12 @@ html body div.center.box.generalbox {
 html body div.course-content div.no-overflow,
 html body div.center.box.generalbox div.no-overflow {
 	overflow: hidden;
-    /* display: flex; */
 	flex-grow: 2;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 }
 .mediaplugin_youtube {
 	margin-top: 0;
-	/* max-height: 300px; */
 	display: inline-block;
 	width: 100%;
 }
@@ -28,7 +26,6 @@ html body div.center.box.generalbox div.no-overflow {
 }
 .yt-link-wrapper > a {
 	color: #8ebae5;
-	/* font-size: 80%; */
 	text-align: center;
 }
 .yt-link-wrapper > a:hover {
@@ -66,7 +63,7 @@ html .path-yt:hover {
 	width: 68px;
 }
 p:empty {
-display: none !important;
+	display: none !important;
 }
 div.center.box.generalbox div.no-overflow div.no-overflow div.video-wrapped {
 	background-color: rgba(30, 30, 30, 0.88);
@@ -118,7 +115,7 @@ html body div.center.box.generalbox div.no-overflow div.video-wrapped div.video-
 	text-align: center;
 	width: 68px;
 	color: #232323;
-	min-height: 294px;
+	min-height: 270px;
 	max-width: 600px;
 }
 .contentwithoutlink {
@@ -151,7 +148,6 @@ fieldset#id_page_video-display-options {
 .editing .section .activity .activityinstance {
 	padding-right: 0;
 }
-
 @media only screen and (max-width: 1024px) {
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube,
 	html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin_youtube div.video-wrapped {
@@ -161,29 +157,21 @@ fieldset#id_page_video-display-options {
 		height: auto;
 		max-width: 100%;
 		height: auto;
-		/* width: 480px; */
-		/* /* width: calc(300px * 1.7766); */
-		/* width:533px;  */
 	}
 	.video-wrapped {
-		/* background-color: rgba(30, 30, 30, 0.88); */
 		position: relative;
 		display: block;
 		max-width: 100%;
-		/* height: 300px; */
-		/* width: 400px; */
 		text-align: center;
 		margin: 0 auto;
 		background-size: cover;
 	}
 	.mediaplugin.mediaplugin_youtube {
 		margin-top: 0;
-		/* max-height: 300px; */
 		display: block;
 		max-width: 100%;
 		background-color: rgba(30, 30, 30, 0.88);
 		height: auto;
-		/* width: 480px; */
 		margin: 0 auto;
 	}
 }
