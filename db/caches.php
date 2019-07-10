@@ -31,6 +31,6 @@ $definitions = array(
         'simplekeys' => false,
         'requirelockingwrite' => true,
         // 'ttl' => 01
-        'ttl' => 10 * 60
+        'ttl' => 24 * 60 * 60
     )
 );
