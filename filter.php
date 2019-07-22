@@ -28,7 +28,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-use \moodle_url;
+// use \moodle_url;
 use \filter_youtube_sanitizer\domnodelist_reverse_iterator;
 
 /**
@@ -79,10 +79,18 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             // Get the Video Information by sending requests with the oembed parameter
             // $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
             $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
-            $oembed = file_get_contents($yturl);
+            if (self::get_http_response_code($yturl) !== "301") {
+                $oembed = file_get_contents($yturl);
+            } else {
+                $oembed = '';
+            }
             $videoinfo = json_decode($oembed, true);
             // Get the tumbnail from the Videoinformation
-            $thumbnail =  file_get_contents($videoinfo[thumbnail_url]);
+            if (isset($videoinfo['thumbnail_url']) == null) {
+                $thumbnail = '';
+            }  else {
+                $thumbnail =  file_get_contents($videoinfo['thumbnail_url']);
+            }
             
             // Get the right part of the node and replace it
             // Example URL for video series: https://www.youtube.com/embed/videoseries?list=SPwHMzH35WbRIBdLm5yYzi1LvayrqoGQo1
@@ -104,6 +112,11 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         return $text;
     }
 
+    /** Checks if the given URL is valid */
+    public function get_http_response_code($url) {
+        $headers = get_headers($url);
+        return substr($headers[0], 9, 3);
+    }
     /**
      * Extract video/list id from URL.
      *
@@ -159,12 +172,12 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $yturl = 'https://youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json&autoplay=1';
         $oembed = file_get_contents($yturl);
         $videoinfo = json_decode($oembed, true);
-        $thumbratio = $videoinfo[thumbnail_width] / $videoinfo[thumbnail_height];
-        $videoratio = $videoinfo[width] / $videoinfo[height];
-        $height =  $videoinfo[height];
-        $node->setAttribute('height', $videoinfo[height]);
-        $thumbwidth = intval($videoinfo[thumbnail_height] * $thumbratio);
-        $videowidth = intval($videoinfo[height] * $videoratio);
+        $thumbratio = $videoinfo['thumbnail_width'] / $videoinfo['thumbnail_height'];
+        $videoratio = $videoinfo['width'] / $videoinfo['height'];
+        $height =  $videoinfo['height'];
+        $node->setAttribute('height', $videoinfo['height']);
+        $thumbwidth = intval($videoinfo['thumbnail_height'] * $thumbratio);
+        $videowidth = intval($videoinfo['height'] * $videoratio);
         $videowidthstring = $videowidth . 'px';
         $videoheightstring = $height . 'px';
         $node->setAttribute('style', "width:100%;max-width:$videowidthstring;min-width:300px;");
@@ -227,36 +240,37 @@ EOT;
     public function get_preview($videoid, $videoinfo, $cache) {
 
         global $PAGE, $CFG;
+
+        $img_url = "https://img.youtube.com/vi/$videoid/0.jpg";
+        $image = false;
+        // check if URL is valid
+        
         // Prepare Cache for the thumbnails
         if (!isset($cache)) {
             $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
-
         } 
         
         // Check if there is any stored VideoID in the cache to generate URL for the image
-        if ($cache->get($videoid) !== null/**$image */) {
-            $result = $cache->get($videoid);
-            $image = $result; 
-        } 
+        if ($cache->get($videoid) !== /*null*/false) {
+            $image = $cache->get($videoid);
+        } else {
+            if (self::get_http_response_code($img_url) !== "404") {
+                $image = base64_encode(file_get_contents($img_url));
+            }
+        }
 
-        $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
         if ($image == false) {
             // Make Image of the size of the wrapper for creating placholder image for missing files
-            $placeholder = imageCreateTrueColor($videoinfo[width] , $videoinfo[height] );
+            $placeholder = imageCreateTrueColor($videoinfo['width'] , $videoinfo['height'] );
             $bg = imageColorAllocate($placeholder, 100, 100, 100);
-            imagefilledrectangle($placeholder, 0, 0, $videoinfo[width], $videoinfo[height], $bg);
+            imagefilledrectangle($placeholder, 0, 0, $videoinfo['width'], $videoinfo['height'], $bg);
             $image = $placeholder;
             $tmp = tempnam( sys_get_temp_dir(), 'img' );
-            header('Content-Type: image/jpeg');
             imagepng($placeholder, $tmp);
             imagedestroy($image);
             $image = base64_encode(file_get_contents($tmp));
             @unlink($tmp);
-        } else {
-            $image =  base64_encode($image);
-            header('Content-Type: image/jpeg');
-
-        }
+        } 
         
         if (isset($image)) {
             // if file downloaded successfully -> Caching the thumbnail in the Applicationcache 
