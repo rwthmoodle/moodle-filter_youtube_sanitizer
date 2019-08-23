@@ -184,6 +184,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
         $node->setAttribute('allowautoplay', '1');
+        $node->setAttribute('class', 'youtube-video');
         // Adding the Play Button.
         $button = <<<EOT
             <svg class="privacy-play-btn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

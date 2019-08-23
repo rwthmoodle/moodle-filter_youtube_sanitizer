@@ -46,8 +46,8 @@ html body div.center.box.generalbox div.no-overflow span.mediaplugin.mediaplugin
 	margin-top: 0;
 	margin-bottom: 5px;
 }
-div.center.box.generalbox div.no-overflow iframe,
-div.center.box.generalbox div.no-overflow div.no-overflow iframe {
+div.center.box.generalbox div.no-overflow iframe.youtube-video,
+div.center.box.generalbox div.no-overflow div.no-overflow iframe.youtube-video {
 	background-color: rgba(30,30,30,0.88);
 	width: auto;
 	max-width: 100%;
@@ -137,8 +137,8 @@ div.no-overflow svg.privacy-play-btn div.small {
 	position: absolute;
 	bottom: 0;
 }
-.mediaplugin_youtube iframe,
-.mediaplugin_youtube div.video-wrapped iframe {
+.mediaplugin_youtube iframe.youtube-video,
+.mediaplugin_youtube div.video-wrapped iframe.youtube-video {
 	width: 100%;
 }
 fieldset#id_page_video-display-options {
