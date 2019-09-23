@@ -28,7 +28,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// use \moodle_url;
 use \filter_youtube_sanitizer\domnodelist_reverse_iterator;
 
 /**
@@ -44,7 +43,7 @@ use \filter_youtube_sanitizer\domnodelist_reverse_iterator;
  */
 class filter_youtube_sanitizer extends moodle_text_filter {
 
-    private static $jsAdded = false;
+    private static $jsadded = false;
 
     /**
      * Get the DOMDocument from the context. Find all the iframes and replace them with divs.
@@ -55,13 +54,12 @@ class filter_youtube_sanitizer extends moodle_text_filter {
      * @return  object DOMDoc object
      */
     public function filter($text, array $options = array()) {
-        // Return the Filter content directly if it doesnt contain any <iframe>
+        // Return the Filter content directly if it doesnt contain any <iframe> !
 
         if (stripos($text, '</iframe>') === false) {
             // Performance shortcut - if there are no </video> tags, nothing can match.
             return $text;
         }
-       
         // Create DOMDocument from the context.
         $dom = new DOMDocument;
         $dom->loadHTML('<?xml encoding="utf-8" ?>'. $text);
@@ -76,8 +74,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                 // Not a supported YouTube video URL.
                 continue;
             }
-            // Get the Video Information by sending requests with the oembed parameter
-            // $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
+            // Get the Video Information by sending requests with the oembed parameter.
             $yturl = 'http://youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D' . $videoid . '&format=json';
             if (self::get_http_response_code($yturl) !== "301") {
                 $oembed = file_get_contents($yturl);
@@ -85,26 +82,24 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                 $oembed = '';
             }
             $videoinfo = json_decode($oembed, true);
-            // Get the tumbnail from the Videoinformation
+            // Get the tumbnail from the Videoinformation !
             if (isset($videoinfo['thumbnail_url']) == null) {
                 $thumbnail = '';
-            }  else {
-                $thumbnail =  file_get_contents($videoinfo['thumbnail_url']);
+            } else {
+                $thumbnail = file_get_contents($videoinfo['thumbnail_url']);
             }
-            
-            // Get the right part of the node and replace it
-            // Example URL for video series: https://www.youtube.com/embed/videoseries?list=SPwHMzH35WbRIBdLm5yYzi1LvayrqoGQo1
+            // Get the right part of the node and replace it !
+            // Example URL for video series: https://www.youtube.com/embed/videoseries?list=SPwHMzH35WbRIBdLm5yYzi1LvayrqoGQo1.
             $url->param('autoplay', '1');
             $url->param('controls', '1');
-            
-            $newNode = $this->video_embed_privacy_translate($node, $src, $videoid, $listid);
-           
+            $newnode = $this->video_embed_privacy_translate($node, $src, $videoid, $listid);
             $parent = $node->parentNode;
-            if ($parent && $parent->hasAttribute('class') && strpos($parent->getAttribute('class'), 'mediaplugin_youtube') !== false) {
+            if ($parent && $parent->hasAttribute('class')
+                && strpos($parent->getAttribute('class'), 'mediaplugin_youtube') !== false) {
                 $node = $parent;
             }
 
-            $node->parentNode->replaceChild($newNode, $node);
+            $node->parentNode->replaceChild($newnode, $node);
         }
         // Return the changed HTML string.
         $text = $dom->saveHTML();
@@ -124,11 +119,9 @@ class filter_youtube_sanitizer extends moodle_text_filter {
      */
     private function parse_ids(moodle_url $url) {
         $videoid = $listid = null;
-
         $host = $url->get_host();
         $path = $url->get_path();
         $matches = [];
-
         switch ($host) {
             case 'youtu.be':
                 if (preg_match('=^/([A-Za-z0-9_\\-]{11})$=', $path, $matches)) {
@@ -146,7 +139,6 @@ class filter_youtube_sanitizer extends moodle_text_filter {
                 }
                 break;
         }
-
         return [$videoid, $listid];
     }
 
@@ -162,19 +154,20 @@ class filter_youtube_sanitizer extends moodle_text_filter {
 
         global $PAGE, $CFG;
         // Reqiure the nescassary JS-file that handles everything associated with clicks and touches.
-        if (!self::$jsAdded ) {
+        if (!self::$jsadded ) {
             $PAGE->requires->js_call_amd("filter_youtube_sanitizer/video-embed-privacy", "init");
-            self::$jsAdded = true;
+            self::$jsadded = true;
         }
-        /** Setting up the video Wrapper */
+        // Setting up the video Wrapper.
         $cache = cache::make('filter_youtube_sanitizer', 'youtubethumbnails');
         $node->setAttribute('src', $url);
-        $yturl = 'https://youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2F' . ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json&autoplay=1';
+        $yturl = 'https://youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2F';
+        $yturl .= ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json&autoplay=1';
         $oembed = file_get_contents($yturl);
         $videoinfo = json_decode($oembed, true);
         $thumbratio = $videoinfo['thumbnail_width'] / $videoinfo['thumbnail_height'];
         $videoratio = $videoinfo['width'] / $videoinfo['height'];
-        $height =  $videoinfo['height'];
+        $height = $videoinfo['height'];
         $node->setAttribute('height', $videoinfo['height']);
         $thumbwidth = intval($videoinfo['thumbnail_height'] * $thumbratio);
         $videowidth = intval($videoinfo['height'] * $videoratio);
@@ -201,7 +194,7 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             s214.6-0.3,357.6-10.7c20-2.4,63.5-2.6,102.3-43.3c30.6-31,40.6-101.4,40.6-101.4s10.2-82.7,10.2-165.3v-77.5
             C1023.2,238.9,1013,156.3,1013,156.3z M407,493l0-287l276,144L407,493z"/></g></g></svg>
 EOT;
-        // setting all the needed  strings
+        // Setting all the needed strings.
         $urlg = get_string('url', 'filter_youtube_sanitizer');
         $nojstext = get_string('no-js-message', 'filter_youtube_sanitizer');
         $terms = get_string('terms', 'filter_youtube_sanitizer');
@@ -209,29 +202,32 @@ EOT;
         $playtext = '<div height="100%" width="100%" class="overlay">' . $button . '</div>';
         $playtext .= '<div class="yt-link-wrapper"><span class="small-yt-link"> ' . $terms . '</span>';
         $playtext .= '<a class="small-yt-link" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
-
-        
-        /* Preparing to recieve JSON with info about video and preview picture fom youtu.be */
+        // Preparing to recieve JSON with info about video and preview picture fom youtu.be.
         $previewparams = [];
-        /** differenciating between lists and videos for getting the right id */
+        // Differenciating between lists and videos for getting the right id.
         if (!is_null($videoid)) {
             $previewparams['vid'] = $videoid;
         }
         if (!is_null($listid)) {
             $previewparams['lid'] = $listid;
         }
-        /** Generating the preview picture wrapper  */
+        // Generating the preview picture wrapper.
         $preview = self::get_preview($videoid, $videoinfo, $cache);
-        /** Mamually adding header and building img raw Data for parsing into the img tags source */
+        // Mamually adding header and building img raw Data for parsing into the img tags source.
         $preview = "data:image/jepg;base64," .  $preview;
         $newimg = $node->ownerDocument->createElement('img');
         $newimg->setAttribute('src', $preview);
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
         $newdiv->appendChild($newimg);
-        /** Getting the video size from JSON and passing the values to the img tag */
+        // Getting the video size from JSON and passing the values to the img tag.
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $newdiv->setAttribute('style', "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;min-width:270px;margin:auto;display:block;background-image: url($preview);background-position:center; background-repeat: no-repeat; background-size: cover;");
+        $stylesstring = <<<EOT
+        "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;
+        min-width:270px;margin:auto;display:block;background-image: url($preview);
+        background-position:center; background-repeat: no-repeat; background-size: cover;")
+EOT;
+        $newdiv->setAttribute('style', $stylesstring);
         $newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
         return $newdiv;
@@ -242,28 +238,25 @@ EOT;
 
         global $PAGE, $CFG;
 
-        $img_url = "https://img.youtube.com/vi/$videoid/0.jpg";
+        $imgurl = "https://img.youtube.com/vi/$videoid/0.jpg";
         $image = false;
-        // check if URL is valid
-        
-        // Prepare Cache for the thumbnails
+        // Check if URL is valid.
+        // Prepare Cache for the thumbnails.
         if (!isset($cache)) {
             $image = file_get_contents("https://img.youtube.com/vi/$videoid/0.jpg");
-        } 
-        
-        // Check if there is any stored VideoID in the cache to generate URL for the image
-        if ($cache->get($videoid) !== /*null*/false) {
+        }
+        // Check if there is any stored VideoID in the cache to generate URL for the image.
+        if ($cache->get($videoid) !== false) {
             $image = $cache->get($videoid);
         } else {
-            if (self::get_http_response_code($img_url) !== "404") {
-                $image = base64_encode(file_get_contents($img_url));
+            if (self::get_http_response_code($imgurl) !== "404") {
+                $image = base64_encode(file_get_contents($imgurl));
             }
         }
-
         if ($image == false) {
-            // Make Image of the size of the wrapper for creating placholder image for missing files
-            $placeholder = imageCreateTrueColor($videoinfo['width'] , $videoinfo['height'] );
-            $bg = imageColorAllocate($placeholder, 100, 100, 100);
+            // Make Image of the size of the wrapper for creating placholder image for missing files.
+            $placeholder = imagecreatetruecolor($videoinfo['width'] , $videoinfo['height'] );
+            $bg = imagecolorallocate($placeholder, 100, 100, 100);
             imagefilledrectangle($placeholder, 0, 0, $videoinfo['width'], $videoinfo['height'], $bg);
             $image = $placeholder;
             $tmp = tempnam( sys_get_temp_dir(), 'img' );
@@ -271,19 +264,13 @@ EOT;
             imagedestroy($image);
             $image = base64_encode(file_get_contents($tmp));
             @unlink($tmp);
-        } 
-        
+        }
         if (isset($image)) {
-            // if file downloaded successfully -> Caching the thumbnail in the Applicationcache 
+            // If file downloaded successfully -> Caching the thumbnail in the Applicationcache.
             $cache->set($videoid, $image);
         } else {
-            $error_text = $result;
+            $errortext = $result;
         }
-    
-    
         return $image;
-    
     }
-
-
 }

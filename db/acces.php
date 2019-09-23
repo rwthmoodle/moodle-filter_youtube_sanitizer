@@ -19,33 +19,31 @@
  *
  * @package    filter_youtube_sanitizer
  * @subpackage tidy
- * @copyright  Markus Offermann 
+ * @copyright  Markus Offermann
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-	'filter/youtube_sanitizer:termsConditionURL' => array(
-		'captype' => 'write',
-		'contextlevel' => CONTEXT_COURSE,
-		'archetypes' => array(
-			'editingteacher' => CAP_ENABLED,
-			'student' => CAP_PROHIBIT,
-			'user' => CAP_PROHIBIT
-		),
-		'clonepermissionsfrom' = 'moodle/my:manageblocks'
-	),
+    'filter/youtube_sanitizer:termsConditionURL' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => array(
+            'editingteacher' => CAP_ENABLED,
+            'student' => CAP_PROHIBIT,
+            'user' => CAP_PROHIBIT
+        ),
+        'clonepermissionsfrom' = 'moodle/my:manageblocks'
+    ),
+    'block/simplehtml:addinstance' => array(
+      'riskbitmask' => RISK_SPAM | RISK_XSS,
 
-	'block/simplehtml:addinstance' => array(
-	  'riskbitmask' => RISK_SPAM | RISK_XSS,
-
-	  	'captype' => 'write',
-	  	'contextlevel' => CONTEXT_BLOCK,
-	  	'archetypes' => array(
-		  	'editingteacher' => CAP_ALLOW,
-		  	'manager' => CAP_ALLOW
-	  	),
-
-	  	'clonepermissionsfrom' => 'moodle/site:manageblocks'
-  	),
-
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+          ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+      ),
 );
