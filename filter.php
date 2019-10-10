@@ -222,11 +222,9 @@ EOT;
         $newdiv->appendChild($newimg);
         // Getting the video size from JSON and passing the values to the img tag.
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
-        $stylesstring = <<<EOT
-        "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;
-        min-width:270px;margin:auto;display:block;background-image: url($preview);
-        background-position:center; background-repeat: no-repeat; background-size: cover;")
-EOT;
+        $stylesstring = "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;";
+        $stylesstring .= "min-width:270px;margin:auto;display:block;background-image: url($preview);";
+        $stylesstring .= "background-position:center; background-repeat: no-repeat; background-size: cover;";
         $newdiv->setAttribute('style', $stylesstring);
         $newdiv->setAttribute('data-embed-play', $playtext);
         $newdiv->setAttribute('data-embed-frame', $node->ownerDocument->saveHTML($node));
