@@ -60,9 +60,17 @@ class filter_youtube_sanitizer extends moodle_text_filter {
             // Performance shortcut - if there are no </video> tags, nothing can match.
             return $text;
         }
+
+        // Temporarily disable html parse errors.
+        $useerrors = libxml_use_internal_errors(true);
+
         // Create DOMDocument from the context.
-        $dom = new DOMDocument;
-        $dom->loadHTML('<?xml encoding="utf-8" ?>'. $text);
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom->loadHTML($text);
+
+        libxml_use_internal_errors($useerrors);
+        libxml_clear_errors();
+
         // Get all the Iframe Elements from the DOMDocument.
         $nodes = $dom->getElementsByTagName('iframe');
         foreach (new domnodelist_reverse_iterator($nodes) as $node) {
