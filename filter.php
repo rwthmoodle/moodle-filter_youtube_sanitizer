@@ -171,16 +171,24 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $node->setAttribute('src', $url);
         $yturl = 'https://youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2F';
         $yturl .= ($videoid === null ? 'playlist%3flist=' . $listid : 'watch%3Fv%3D' . $videoid) . '&format=json&autoplay=1';
-        $oembed = file_get_contents($yturl);
-        $videoinfo = json_decode($oembed, true);
-        $thumbratio = $videoinfo['thumbnail_width'] / $videoinfo['thumbnail_height'];
-        $videoratio = $videoinfo['width'] / $videoinfo['height'];
-        $height = $videoinfo['height'];
-        $node->setAttribute('height', $videoinfo['height']);
-        $thumbwidth = intval($videoinfo['thumbnail_height'] * $thumbratio);
-        $videowidth = intval($videoinfo['height'] * $videoratio);
-        $videowidthstring = $videowidth . 'px';
-        $videoheightstring = $height . 'px';
+        $oembed = @file_get_contents($yturl);
+        $videoavailable = $oembed !== false;
+        if ($videoavailable) {
+            // Video is accessible.
+            $videoinfo = json_decode($oembed, true);
+            $thumbratio = $videoinfo['thumbnail_width'] / $videoinfo['thumbnail_height'];
+            $videoratio = $videoinfo['width'] / $videoinfo['height'];
+            $height = $videoinfo['height'];
+            $node->setAttribute('height', $videoinfo['height']);
+            $thumbwidth = intval($videoinfo['thumbnail_height'] * $thumbratio);
+            $videowidth = intval($videoinfo['height'] * $videoratio);
+            $videowidthstring = $videowidth . 'px';
+            $videoheightstring = $height . 'px';
+        } else {
+            // Video is no longer accessible.
+            $videowidthstring = '450px';
+            $videoheightstring = '300px';
+        }
         $node->setAttribute('style', "width:100%;max-width:$videowidthstring;min-width:300px;");
         $node->setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
         $node->setAttribute('allowfullscreen', '1');
@@ -210,28 +218,28 @@ EOT;
         $playtext = '<div height="100%" width="100%" class="overlay">' . $button . '</div>';
         $playtext .= '<div class="yt-link-wrapper"><span class="small-yt-link"> ' . $terms . '</span>';
         $playtext .= '<a class="small-yt-link" href="' . $urlg . '" target="_blank"> ' . $cond . '</a><div>';
-        // Preparing to recieve JSON with info about video and preview picture fom youtu.be.
-        $previewparams = [];
-        // Differenciating between lists and videos for getting the right id.
-        if (!is_null($videoid)) {
-            $previewparams['vid'] = $videoid;
-        }
-        if (!is_null($listid)) {
-            $previewparams['lid'] = $listid;
-        }
-        // Generating the preview picture wrapper.
-        $preview = self::get_preview($videoid, $videoinfo, $cache);
-        // Mamually adding header and building img raw Data for parsing into the img tags source.
-        $preview = "data:image/jepg;base64," .  $preview;
-        $newimg = $node->ownerDocument->createElement('img');
-        $newimg->setAttribute('src', $preview);
+
         $newdiv = $node->ownerDocument->createElement('div');
         $newdiv->setAttribute('class', "video-wrapped");
-        $newdiv->appendChild($newimg);
+        if ($videoavailable) {
+            // Generating the preview picture wrapper.
+            $preview = $this->get_preview($videoid, $videoinfo, $cache);
+            // Mamually adding header and building img raw Data for parsing into the img tags source.
+            $preview = "data:image/jepg;base64," .  $preview;
+            $newimg = $node->ownerDocument->createElement('img');
+            $newimg->setAttribute('src', $preview);
+            $newdiv->appendChild($newimg);
+        }
+
         // Getting the video size from JSON and passing the values to the img tag.
         $newdiv->setAttribute('allow', "enctrypted-media;autoplay;");
         $stylesstring = "height:100%;width:100%;max-width:$videowidthstring;max-height:$videoheightstring;";
-        $stylesstring .= "min-width:270px;margin:auto;display:block;background-image: url($preview);";
+        $stylesstring .= "min-width:270px;margin:auto;display:block;";
+        if ($videoavailable) {
+            $stylesstring .= "background-image: url($preview);";
+        } else {
+            $stylesstring .= "background-color: black;";
+        }
         $stylesstring .= "background-position:center; background-repeat: no-repeat; background-size: cover;";
         $newdiv->setAttribute('style', $stylesstring);
         $newdiv->setAttribute('data-embed-play', $playtext);

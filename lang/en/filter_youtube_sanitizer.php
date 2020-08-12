@@ -25,5 +25,5 @@ $string['filtername'] = 'Youtube Sanitizer';
 $string['pluginname'] = 'Youtube Sanitizer';
 $string['no-js-message'] = 'Please activate JavaScript to watch the Video';
 $string['terms'] = 'The Video will be played via YouTube. You agree to';
-$string['conditions'] = 'the terms and conditions of google.';
+$string['conditions'] = 'the terms and conditions of Google.';
 $string['url'] = 'https://www.google.com/intl/en/policies/privacy/';
