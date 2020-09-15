@@ -65,8 +65,8 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         $useerrors = libxml_use_internal_errors(true);
 
         // Create DOMDocument from the context.
-        $dom = new DOMDocument('1.0', 'UTF-8');
-        $dom->loadHTML($text);
+        $dom = new DOMDocument();
+        $dom->loadHTML('<?xml encoding="utf-8" ?>'.$text);
 
         libxml_use_internal_errors($useerrors);
         libxml_clear_errors();
