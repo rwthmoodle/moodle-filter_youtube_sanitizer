@@ -14,22 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Version information
- *
- * @package   filter_youtube_sainitizer
- * @copyright 2017 RWTH Aachen University
- * @author    t.schroeder@itc.rwth-aachen.de
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
 $definitions = array(
-    'youtubethumbnails' => array(
+    'videoinfo' => array(
         'mode' => cache_store::MODE_APPLICATION,
-        'simplekeys' => false,
-        'requirelockingwrite' => true,
         'ttl' => 24 * 60 * 60
     )
 );

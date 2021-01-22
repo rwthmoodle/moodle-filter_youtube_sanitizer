@@ -18,10 +18,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = 'YouTube Sanitizer';
 $string['pluginname'] = 'YouTube Sanitizer';
-$string['privacy:metadata'] = 'YouTube Sanitizer doesn\'t store any personal data.';
-$string['cachedef_videoinfo'] = 'Stores information about videos, e.g. html embed code and thumbnail.';
-$string['privacynote'] = 'The video will be played via YouTube. You agree to {$a}.';
-$string['privacyurltext'] = 'the Google privacy policy';
-$string['privacyurl'] = 'https://policies.google.com/privacy?hl=en';
-$string['oembederror'] = 'Error loading video embed information.';
-$string['thumbnailerror'] = 'Error loading video thumbnail.';
+$string['privacy:metadata'] = 'Der YouTube Sanitizer speichert keine persönlichen Daten.';
+$string['cachedef_videoinfo'] = 'Speichert Informationen über Videos, z.B. HTML-Einbettungscodes und Vorschaubilder.';
+$string['privacynote'] = 'Das Video wird via YouTube abgespielt. Sie erklären sich mit {$a} einverstanden.';
+$string['privacyurltext'] = 'der Google-Datenschutzerklärung';
+$string['privacyurl'] = 'https://policies.google.com/privacy?hl=de';
+$string['oembederror'] = 'Fehler beim Laden der Videoeinbettungsinformationen.';
+$string['thumbnailerror'] = 'Fehler beim Laden des Vorschaubildes.';
