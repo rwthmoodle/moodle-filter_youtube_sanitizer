@@ -35,8 +35,8 @@ class filter_youtube_sanitizer extends moodle_text_filter {
         }
 
         $cache = cache::make('filter_youtube_sanitizer', 'videoinfo');
-        $text = preg_replace_callback('~<iframe[^>]* src="((:?https?://)?(:?(:?www|m)\\.)?(:?youtube\\.com|youtube-nocookies\\.com|youtu\\.be)[^"]*)"[^>]*>[^<]*</iframe>~', function($matches) use ($cache) {
-            $videourl = $matches[1];
+        $text = preg_replace_callback('~(<span class="mediaplugin mediaplugin_youtube">[^<]*)?<iframe[^>]* src="((:?https?://)?(:?(:?www|m)\\.)?(:?youtube\\.com|youtube-nocookies\\.com|youtu\\.be)[^"]*)"[^>]*>[^<]*</iframe>(?(1)[^<]*</span>)~', function($matches) use ($cache) {
+            $videourl = $matches[2];
             return $this->get_video_html($videourl, $cache);
         }, $text);
 

@@ -16,7 +16,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2021012200;
+$plugin->version   = 2021012600;
 $plugin->requires  = 2017110800;
 $plugin->component = 'filter_youtube_sanitizer';
-$plugin->release   = '2.0.0';
+$plugin->release   = '2.0.1';
