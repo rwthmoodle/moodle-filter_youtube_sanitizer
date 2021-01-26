@@ -1,23 +1,18 @@
-Filter Youtube Sanitizer
-==================================
 
-Documentation
--------------
-This  plugin provides a way to embed YouTube Videos via the mediaplugin without compromising the Privacy of the site visitor, so no information about the current user is sent to provider of the web service.  
+# filter_youtube_sanitizer
 
-This filter is applied after the moodle-native mediaplugin has done it's filtering thing with all the encountered Video Ressources. The Youtube-Sanitizer expects all the Video Tags to be converted to iframes (You need to changes a setting in the mediaplugin options as explained in #4 of the Installation instructions). Then it simply takes theses iframes and builds a dummy player (grey box with YouTube play Logo), that contains the iframe, that previously was cut from the DOM in a dataAttribute. So when you click it gets replaced by the real iframe. That sadly means no preview images today, but no data is sent to YouTube by just visiting a side to display these images.  
+## Documentation
 
-Plugin installation
----------------------
-You need to have a running moodle V3.* on your server  to install this plugin.
+This plugin allows you to embed YouTube videos without compromising the privacy of the site visitor. Data will only be sent to Google by the browser once you actually click on a video.
 
-1. cd into your `moodle/filter/` folder
-2. clone the Git Repository from https://www.url.org/some_repository
-3. if you want to Download the plugin data manually just use this link https://www.url.org/some_repository/archive/master.zip and unpack the Data inside into your `moodle/filter` folder. The plugin should reside in `moodle/filter/youtube_sanitizer/`.
-4. in the settings of your mediaplugin standard filter (Website-administration->plugins->filter->multimedia-plugins) you got to unmark the check boxes for Youtube. like explained above its nescassary so the YouTube-Sanatizer gets the data it expects.
-5. Last but not least you have to configure the Multimedia-stadard thats included in Moodle, so it doesnt handle the Youtube Links.
-To do that you have to navigate to the Plugin-settings page. There you choose your Multimediaplugin and uncheck the box that reads Youtube (as standard the box is checked).
+* This filter only works on iframes. It is therefore recommended to also use the core "Multimedia plugins" filter which can convert YouTube links into iframes.
+* Thumbnails are downloaded and cached by the Moodle server.
+* URL parameters are preserved. So you could e.g. use links where the video starts playing at a certain offset.
 
-Windows support
----------------
-* use `\` instead of `/` in paths in examples above
+## Configuration
+
+If you have the "Multimedia plugins" filter and its YouTube player setting enabled you need to place this one behind Multimedia plugins in the filter sequence.
+
+## Restrictions
+
+* On mobile devices the autoplay may not work. You have to click the video twice to play it.

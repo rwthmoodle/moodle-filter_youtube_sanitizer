@@ -14,18 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Youtube Sanitizer
- *
- * @package    filter_youtube_sanitizer
- * @subpackage tidy
- * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2020091500;        // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2017110800;        // Requires this Moodle version.
-$plugin->component = 'filter_youtube_sanitizer';     // Full name of the plugin (used for diagnostics).
-$plugin->release   = '1.1.1';
+$plugin->version   = 2021012200;
+$plugin->requires  = 2017110800;
+$plugin->component = 'filter_youtube_sanitizer';
+$plugin->release   = '2.0.0';
