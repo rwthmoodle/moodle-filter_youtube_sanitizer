@@ -1,0 +1,9 @@
+include:
+  - project: 'moodle_l2p/moodle-ci'
+    file: '/build-package.gitlab-ci.yml'
+
+variables:
+  PACKAGE_NAME:         moodle-rwth-youtube_sanitizer
+  PACKAGE_CAPABILITIES: moodle-rwth-youtube_sanitizer
+  PACKAGE_SUMMARY:      RWTH plugin that prevents any communication with Google servers when viewing a page with embedded YouTube videos until you click on a video.
+  PACKAGE_DESCRIPTION:  Package to install the Moodle Plugin youtube_sanitizer.
